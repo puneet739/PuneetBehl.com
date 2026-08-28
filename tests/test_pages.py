@@ -267,7 +267,9 @@ def test_work_index_filter_labels_come_from_project_types(client):
     # Agentic AI. Pin the exact data-derived order and rendered markup.
     body = client.get("/work").text
     labels = re.findall(
-        r'<button type="button" class="filter-btn" data-filter="([^"]+)">\1</button>', body
+        r'<button type="button" class="tag filter-btn(?: is-active)?" '
+        r'aria-pressed="(?:true|false)" data-filter="([^"]+)">\1</button>',
+        body,
     )
     assert labels == ["All", "Website", "Agentic AI", "Platform", "App", "Open source"]
 
@@ -389,3 +391,27 @@ def test_writing_unknown_slug_is_html_404(client):
     assert "text/html" in r.headers["content-type"]
     assert "application/json" not in r.headers["content-type"]
     assert '"detail"' not in r.text
+
+
+def test_site_js_served(client):
+    r = client.get("/static/js/site.js")
+    assert r.status_code == 200
+    assert "IntersectionObserver" in r.text
+
+
+def test_work_cards_have_filter_hooks(client):
+    body = client.get("/work").text
+    assert 'class="g-row work-card' in body
+    assert 'data-type="Agentic AI"' in body
+
+
+def test_forms_are_progressively_enhanced(client):
+    for path in ["/contact", "/interviews"]:
+        assert "data-ajax" in client.get(path).text
+
+
+def test_pages_render_without_js(client):
+    # .reveal starts visible; only site.js adding .js to <html> hides it first.
+    css = client.get("/static/css/site.css").text
+    assert ".reveal { opacity: 1; }" in css
+    assert ".js .reveal:not(.in)" in css

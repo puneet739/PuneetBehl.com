@@ -7,7 +7,7 @@
   <p style="font-size:17px;line-height:1.6;max-width:38em;margin:0 0 32px;color:var(--color-neutral-800)">Eight projects — client websites, products I built end to end, and platform work inside enterprise engineering organisations. Each one lists what it had to survive and what it measured afterwards.</p>
   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px">
     {% for f in filters %}
-      <button type="button" class="filter-btn" data-filter="{{ f }}">{{ f }}</button>
+      <button type="button" class="tag filter-btn{% if loop.first %} is-active{% endif %}" aria-pressed="{{ 'true' if loop.first else 'false' }}" data-filter="{{ f }}">{{ f }}</button>
     {% endfor %}
   </div>
   <div style="display:flex;flex-direction:column">
