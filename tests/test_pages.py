@@ -77,6 +77,62 @@ def test_favicon_served(client):
     assert "<svg" in r.text
 
 
+import re  # noqa: E402
+
+# Pages that are routable today. Tasks 5–12 add routes; extend this list so the
+# asset-resolution guard below automatically covers them.
+ROUTABLE_PAGES = ["/"]
+
+
+def _html_static_refs(html):
+    """src=/href= values that point at the /static/ mount (already root-relative)."""
+    refs = set()
+    for m in re.finditer(r'(?:src|href)="([^"]+)"', html):
+        val = m.group(1)
+        if "/static/" in val:
+            refs.add(val)
+    return refs
+
+
+def _css_url_refs(css_text, base_dir="/static/css/"):
+    """url(...) targets from a stylesheet served under base_dir, resolved the way a
+    browser would: root-relative kept as-is, otherwise joined onto base_dir."""
+    refs = set()
+    for m in re.finditer(r"""url\(\s*['"]?([^'")]+?)['"]?\s*\)""", css_text):
+        val = m.group(1).strip()
+        if val.startswith(("data:", "http://", "https://", "//")):
+            continue
+        refs.add(val if val.startswith("/") else base_dir + val)
+    return refs
+
+
+def test_referenced_static_assets_resolve(client):
+    # Regression guard: nothing else asserts that a *referenced* asset actually
+    # resolves. Extract every /static/ reference from each routable page plus
+    # every url(...) in the served site.css, then fetch each one.
+    refs = set()
+    for page in ROUTABLE_PAGES:
+        r = client.get(page)
+        assert r.status_code == 200, f"page {page!r} did not load ({r.status_code})"
+        refs |= _html_static_refs(r.text)
+
+    css = client.get("/static/css/site.css")
+    assert css.status_code == 200
+    refs |= _css_url_refs(css.text)
+
+    assert len(refs) >= 9, (
+        f"only extracted {len(refs)} static references ({sorted(refs)}) — the "
+        f"extractor is broken; this test must not pass vacuously"
+    )
+
+    failures = [
+        f"{client.get(u).status_code} {u}"
+        for u in sorted(refs)
+        if client.get(u).status_code != 200
+    ]
+    assert not failures, "referenced static assets that 404:\n" + "\n".join(failures)
+
+
 def test_home_content(client):
     body = client.get("/").text
     assert "I design distributed systems that stay up" in body
@@ -119,8 +175,18 @@ def test_home_featured_projects_in_yaml_order(client):
     assert order == sorted(order), "featured project links out of expected order"
 
 
-def test_home_testimonial_from_site_yaml(client):
-    # The testimonial now comes from site.yaml, not hard-coded markup.
+def test_home_testimonial_from_site_yaml(client, app):
+    # Prove the testimonial is wired to site.testimonial and not left as the
+    # design's hard-coded markup: swap in a sentinel author, then require the
+    # sentinel to appear and the real author to be gone.
+    orig = app.state.content
+    sentinel = "Q. A. Sentinel — Verification Bot, Nowhere Inc"
+    patched_site = orig.site.model_copy(
+        update={"testimonial": orig.site.testimonial.model_copy(update={"author": sentinel})}
+    )
+    app.state.content = orig.model_copy(update={"site": patched_site})
+
     body = client.get("/").text
-    assert "Ravi Menon — VP Engineering, Northgate Financial" in body
+    assert sentinel in body, "testimonial author is not rendered from site.testimonial"
+    assert "Ravi Menon" not in body, "design's hard-coded testimonial author still present"
     assert "the payments core has not had a Sev-1" in body

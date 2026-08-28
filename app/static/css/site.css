@@ -4,15 +4,15 @@ a{color:var(--color-accent);text-decoration:none}
 a:hover{color:var(--color-accent-700)}
 .dot-screen{background-image:radial-gradient(circle,rgba(32,30,29,.18) 30%,transparent 32%);background-size:4px 4px}
 .art{position:absolute;inset:0;background-size:cover;background-position:top left;background-repeat:no-repeat}
-.art-loaderhouse{background-image:url(assets/loaderhouse.svg)}
-.art-chartwell{background-image:url(assets/chartwell.svg)}
-.art-relayd{background-image:url(assets/relayd.svg)}
-.art-northgate-rails{background-image:url(assets/northgate-rails.svg)}
-.art-kubestat{background-image:url(assets/kubestat.svg)}
-.art-tenderfoot{background-image:url(assets/tenderfoot.svg)}
-.art-specflow{background-image:url(assets/specflow.svg)}
-.art-anchor-cli{background-image:url(assets/anchor-cli.svg)}
-.art-interview{background-image:url(assets/interview-scorecard.svg)}
+.art-loaderhouse{background-image:url(/static/assets/loaderhouse.svg)}
+.art-chartwell{background-image:url(/static/assets/chartwell.svg)}
+.art-relayd{background-image:url(/static/assets/relayd.svg)}
+.art-northgate-rails{background-image:url(/static/assets/northgate-rails.svg)}
+.art-kubestat{background-image:url(/static/assets/kubestat.svg)}
+.art-tenderfoot{background-image:url(/static/assets/tenderfoot.svg)}
+.art-specflow{background-image:url(/static/assets/specflow.svg)}
+.art-anchor-cli{background-image:url(/static/assets/anchor-cli.svg)}
+.art-interview{background-image:url(/static/assets/interview-scorecard.svg)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes sweep{0%{transform:translateX(-70%)}100%{transform:translateX(180%)}}
 @keyframes dashflow{to{stroke-dashoffset:-56}}
