@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Contact — Puneet Behl{% endblock %}
+{% block description %}Tell me what you are building and what is in the way. Two engagement slots open from October 2026; I reply within one working day.{% endblock %}
+{% block main %}
+<main style="padding:56px 0 96px">
+  <div class="g-2" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+    <div>
+      <h1 style="font-size:46px;margin:0 0 20px">Let's talk</h1>
+      <p style="font-size:18px;line-height:1.65;margin:0 0 28px;color:var(--color-neutral-800)">{{ site.availability_long }}. Tell me what you are building and what is in the way — I reply within one working day, from IST.</p>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:32px">
+        <div style="border-top:1px solid var(--color-text);padding-top:10px"><div style="font-size:12px;color:var(--color-neutral-600);letter-spacing:.08em;text-transform:uppercase">Email</div><a href="mailto:{{ site.email }}" style="font:600 19px var(--font-heading)">{{ site.email }}</a></div>
+        <div style="border-top:1px solid var(--color-text);padding-top:10px"><div style="font-size:12px;color:var(--color-neutral-600);letter-spacing:.08em;text-transform:uppercase">Phone</div><a href="tel:{{ site.phone | replace(' ', '') }}" style="font:600 19px var(--font-heading)">{{ site.phone }}</a></div>
+        <div style="border-top:1px solid var(--color-text);padding-top:10px"><div style="font-size:12px;color:var(--color-neutral-600);letter-spacing:.08em;text-transform:uppercase">LinkedIn</div><a href="{{ site.linkedin }}" target="_blank" rel="noopener" style="font:600 19px var(--font-heading)">{{ site.linkedin | replace('https://', '') }}</a></div>
+        <div style="border-top:1px solid var(--color-text);padding-top:10px"><div style="font-size:12px;color:var(--color-neutral-600);letter-spacing:.08em;text-transform:uppercase">Based in</div><div style="font:600 19px var(--font-heading)">{{ site.location }}</div></div>
+      </div>
+      <p style="font-size:14px;color:var(--color-neutral-700);margin:0">Prefer a call straight away? Ask for a slot in the form and I will send a calendar link with three times.</p>
+    </div>
+    <div>
+      {% if sent %}
+      <div style="border-top:4px solid var(--color-accent);padding-top:20px">
+        <h2 style="font-size:26px;margin:0 0 10px">Thank you — that is with me.</h2>
+        <p style="font-size:15.5px;line-height:1.6;color:var(--color-neutral-800);margin:0 0 18px">I read every enquiry myself and reply within one working day. If it is urgent, call or WhatsApp {{ site.phone }}.</p>
+        <a href="/contact" class="btn btn-secondary" style="font-size:14px">Send another</a>
+      </div>
+      {% else %}
+      <form method="post" action="/contact" data-ajax style="border-top:4px solid var(--color-text);padding-top:20px;display:flex;flex-direction:column;gap:16px">
+        <h2 style="font-size:24px;margin:0">Project enquiry</h2>
+        {% include "_form_errors.html" %}
+        <div class="field"><label for="cf-name">Name</label><input id="cf-name" name="name" class="input" required maxlength="100" value="{{ values.name | default('', true) }}" placeholder="Your name"></div>
+        <div class="field"><label for="cf-email">Email</label><input id="cf-email" name="email" class="input" type="email" required maxlength="200" value="{{ values.email | default('', true) }}" placeholder="you@company.com"></div>
+        <div class="field"><label for="cf-company">Company</label><input id="cf-company" name="company" class="input" maxlength="100" value="{{ values.company | default('', true) }}" placeholder="Company or team"></div>
+        <div class="field"><label for="cf-kind">What do you need?</label>
+          <select id="cf-kind" name="kind" class="input">
+            {% for k in contact_kinds %}<option{% if values.kind == k %} selected{% endif %}>{{ k }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="field"><label for="cf-msg">The problem, briefly</label><textarea id="cf-msg" name="msg" class="input" required maxlength="5000" placeholder="What you are building, what is in the way, and any dates that matter.">{{ values.msg | default('', true) }}</textarea></div>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="ts" value="{{ form_ts }}">
+        <button type="submit" class="btn btn-primary btn-block" style="font-size:15px;padding:12px">Send enquiry</button>
+        <p style="font-size:12px;color:var(--color-neutral-600);margin:0">No newsletter, no CRM sequence. Your details go to my inbox only.</p>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</main>
+{% endblock %}

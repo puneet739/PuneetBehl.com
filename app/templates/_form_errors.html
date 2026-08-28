@@ -1,0 +1,8 @@
+{% if errors %}
+<div class="form-errors" role="alert" style="border-left:4px solid var(--color-accent-2);padding:10px 14px;margin-bottom:8px">
+  <p style="margin:0;font-size:14px">Please check the highlighted fields.</p>
+  <ul style="margin:6px 0 0;padding-left:18px;font-size:13px">
+    {% for field, msg in errors.items() %}<li>{{ field }}: {{ msg }}</li>{% endfor %}
+  </ul>
+</div>
+{% endif %}
