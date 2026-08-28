@@ -1,2 +1,43 @@
 {% extends "base.html" %}
-{% block main %}<main style="padding:56px 0 96px"><h1 style="font-size:46px;margin:0 0 16px">Services</h1></main>{% endblock %}
+{% block title %}Services — Puneet Behl{% endblock %}
+{% block description %}Three ways to work with me: a fixed-price architecture sprint, a build-and-ship retainer, or fractional architect cover — all remote, IST-anchored.{% endblock %}
+{% block main %}
+<main style="padding:56px 0 96px">
+  <h1 style="font-size:46px;margin:0 0 16px">Services</h1>
+  <p style="font-size:17px;line-height:1.6;max-width:38em;margin:0 0 48px;color:var(--color-neutral-800)">Three ways to work with me. All remote, IST-anchored with four hours of overlap into Europe and the US East Coast. Indian clients are invoiced in INR at the prevailing rate.</p>
+  <div class="g-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:36px">
+    {% for s in packages %}
+      <div style="display:flex;flex-direction:column;border-top:4px solid var(--color-text);padding-top:20px">
+        <div style="font:600 11px/1 var(--font-heading);letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:14px">{{ s.kicker }}</div>
+        <h2 style="font-size:26px;margin:0 0 10px;line-height:1.15">{{ s.name }}</h2>
+        <div style="font:600 22px var(--font-heading);margin-bottom:4px">{{ s.price }}</div>
+        <div style="font-size:12.5px;color:var(--color-neutral-600);margin-bottom:18px">{{ s.terms }}</div>
+        <p style="font-size:14.5px;line-height:1.6;color:var(--color-neutral-800);margin:0 0 18px">{{ s.blurb }}</p>
+        <ul style="margin:0 0 20px;padding-left:18px;font-size:14px;line-height:1.6;color:var(--color-neutral-800)">
+          {% for i in s.items %}<li style="margin-bottom:7px">{{ i }}</li>{% endfor %}
+        </ul>
+        <a href="/contact" class="btn btn-secondary" style="margin-top:auto;font-size:14px">{{ s.cta }}</a>
+      </div>
+    {% endfor %}
+  </div>
+
+  <section class="g-2" style="margin-top:80px;display:grid;grid-template-columns:1fr 1fr;gap:56px">
+    <div>
+      <h2 style="font-size:26px;margin:0 0 18px">How an engagement runs</h2>
+      <ol style="margin:0;padding-left:20px;font-size:15.5px;line-height:1.7;color:var(--color-neutral-800)">
+        <li>A 30-minute call: the problem, the constraints, who else is involved.</li>
+        <li>A one-page scope with deliverables, price and dates — usually within two days.</li>
+        <li>Weekly written updates, a shared board, and a demo every Friday.</li>
+        <li>Handover: runbooks, architecture decision records, and a walkthrough with your team.</li>
+      </ol>
+    </div>
+    <div>
+      <h2 style="font-size:26px;margin:0 0 18px">What clients say</h2>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <blockquote style="margin:0"><p style="font:italic 400 17px/1.5 var(--font-body);margin:0 0 8px">"We had four months of agent prototypes and nothing in production. Puneet got one workflow live in five weeks and taught us why the other three were the wrong shape."</p><footer style="font-size:13px;color:var(--color-neutral-700)">Anika Rao — Head of Product, Curato Health</footer></blockquote>
+        <blockquote style="margin:0"><p style="font:italic 400 17px/1.5 var(--font-body);margin:0 0 8px">"He rebuilt the load-matching service and left the team able to maintain it. That second part is rare."</p><footer style="font-size:13px;color:var(--color-neutral-700)">Dana Whitfield — CTO, Loaderhouse</footer></blockquote>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
