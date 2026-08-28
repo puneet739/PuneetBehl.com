@@ -1,8 +1,11 @@
 import datetime as dt
+import shutil
 
 import pytest
+import yaml
 from pydantic import ValidationError
 
+import app.content as content_module
 from app.content import (
     CONTENT_DIR,
     get_content,
@@ -179,6 +182,42 @@ def test_models_are_frozen(content):
 def test_load_content_raises_on_missing(tmp_path):
     with pytest.raises((FileNotFoundError, ValidationError)):
         load_content(tmp_path)
+
+
+def test_load_content_raises_validation_error_on_missing_key(tmp_path):
+    # A complete, valid tree except site.yaml is missing a required key.
+    dst = tmp_path / "content"
+    shutil.copytree(CONTENT_DIR, dst)
+    site = yaml.safe_load((dst / "site.yaml").read_text())
+    del site["email"]
+    (dst / "site.yaml").write_text(yaml.safe_dump(site, allow_unicode=True))
+    with pytest.raises(ValidationError):
+        load_content(dst)
+
+
+def test_get_content_is_cached_singleton(monkeypatch):
+    # get_content() must build the Content once and hand back the same object.
+    saved = content_module._content
+    try:
+        content_module._content = None
+        calls = {"n": 0}
+        real_load = content_module.load_content
+
+        def counting_load(*args, **kwargs):
+            calls["n"] += 1
+            return real_load(*args, **kwargs)
+
+        monkeypatch.setattr(content_module, "load_content", counting_load)
+
+        first = get_content()
+        second = get_content()
+        third = get_content()
+
+        assert calls["n"] == 1
+        assert first is second is third
+        assert get_content() is get_content()
+    finally:
+        content_module._content = saved
 
 
 def test_content_dir_points_at_repo_content():
