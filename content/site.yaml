@@ -1,0 +1,22 @@
+tagline_role: "Technical Architect · Bengaluru"
+availability_short: "2 slots · Oct 2026"
+availability_long: "Two slots open from October 2026"
+email: "puneet739@gmail.com"
+phone: "+91 97116 16135"
+linkedin: "https://linkedin.com/in/puneetbehl"
+github: "https://github.com/puneetbehl"
+location: "Bengaluru, India · UTC+5:30"
+footer_blurb: >-
+  Freelance technical architect. Distributed systems, AWS and Kubernetes,
+  agentic AI. Bengaluru, working worldwide.
+credentials: "AWS Certified Solutions Architect · CKAD · Certified ScrumMaster"
+testimonial:
+  quote: >-
+    Puneet arrived with a diagram and left us with a running platform. Six
+    months in, the payments core has not had a Sev-1.
+  author: "Ravi Menon — VP Engineering, Northgate Financial"
+home_stats:
+  - {value: "50M+", label: "Requests per day on the platforms I architected"}
+  - {value: "99.99%", label: "Sustained uptime, fault-tolerant by design"}
+  - {value: "60%", label: "Cycle-time reduction from AI, spec-driven delivery"}
+  - {value: "35", label: "Engineers across 7 teams on that workflow"}

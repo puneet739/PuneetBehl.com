@@ -1,0 +1,41 @@
+- kicker: "Fixed price · 2 weeks"
+  name: "Architecture Sprint"
+  price: "$6,500"
+  terms: "or ₹5.4L · two weeks, one architect"
+  blurb: >-
+    For teams with an agentic idea and no agreed shape. Ends with a build plan
+    detailed enough to staff and estimate.
+  items:
+    - "Discovery with your engineers and domain experts"
+    - "Target architecture, tool contracts and failure model"
+    - "Evaluation approach and cost ceiling"
+    - "A costed, sequenced build plan you keep"
+  cta: "Scope a sprint"
+
+- kicker: "Retainer · from 8 weeks"
+  name: "Build and Ship"
+  price: "From $9,000"
+  terms: "per month · 3-4 days a week"
+  blurb: >-
+    I build the thing. Hands on keyboard in your repos, working with your team,
+    shipping to your infrastructure on a weekly cadence.
+  items:
+    - "Architecture plus implementation, not handoff"
+    - "CI, observability and runbooks as part of delivery"
+    - "Weekly demos and written status"
+    - "Pair sessions so the knowledge stays with your team"
+  cta: "Check availability"
+
+- kicker: "Advisory · monthly"
+  name: "Fractional Architect"
+  price: "From $3,800"
+  terms: "per month · 1 day a week"
+  blurb: >-
+    Ongoing architectural cover for a team that has engineers but no one senior
+    enough to own the system-level decisions.
+  items:
+    - "Design and code review on the decisions that matter"
+    - "On-call escalation support for architecture questions"
+    - "Hiring input: loops, rubrics, technical interviews"
+    - "Quarterly architecture health review"
+  cta: "Talk it through"

@@ -1,0 +1,261 @@
+- slug: loaderhouse
+  name: Loaderhouse
+  mono: LH
+  domain: loaderhouse.com
+  type: Website
+  year: "2026"
+  role: Architect and lead engineer
+  tint: var(--color-accent)
+  headline: 3.1M loads matched a year
+  summary: >-
+    A freight load board for mid-size Indian carriers — public marketplace,
+    broker console and a matching service that ranks loads against a truck's
+    route, capacity and return leg.
+  problem: >-
+    Loaderhouse was running on a PHP monolith where every search hit the primary
+    database. Peak-hour searches took eleven seconds, brokers were losing loads
+    to the phone, and the team could not ship a mobile client on top of it.
+  approach:
+    - "Rebuilt search as a read-optimised projection in Postgres with Redis-backed geo indexes, taking p95 search latency from 11s to 240ms."
+    - "Split the matching engine into its own service with a scored ranking model over route overlap, capacity and historical acceptance."
+    - "Introduced an event log so the broker console, notifications and analytics all read the same stream instead of polling."
+    - "Shipped a public marketing site and SEO-indexable load pages that now bring in a third of new carrier signups."
+  architecture: >-
+    Next.js front end on CloudFront, Spring Boot services on ECS Fargate behind
+    an ALB, Postgres with read replicas, Redis for geo and session, and an
+    SNS/SQS fan-out for notification and analytics consumers. Terraform for
+    everything; deploys are trunk-based through GitHub Actions.
+  metrics:
+    - {value: "240ms", label: "p95 search latency, down from 11s"}
+    - {value: "12,400", label: "active carriers on the platform"}
+    - {value: "3.1M", label: "loads matched in the last year"}
+  stack: [Next.js, Spring Boot, Postgres, Redis, ECS Fargate, Terraform]
+
+- slug: chartwell
+  name: Chartwell Summary
+  mono: CW
+  domain: Healthcare SaaS · internal product
+  type: Agentic AI
+  year: "2025"
+  role: Architect
+  tint: var(--color-accent-2)
+  headline: 35% less record-review time
+  summary: >-
+    A clinical summarisation engine that reads a patient's scattered record —
+    problems, allergies, notes, external documents — and hands the physician a
+    structured, cited summary before the appointment starts.
+  problem: >-
+    Physicians were opening eight tabs to prepare for a fifteen-minute
+    consultation. The record was complete but unreadable: duplicate problems
+    from three source systems, PDFs with no structure, and no way to see what
+    had changed since the last visit.
+  approach:
+    - "Designed a deterministic extraction layer over HL7 FHIR resources before any model call, so the summary is grounded in codes rather than prose."
+    - "Built a structured-output pipeline that returns cited fields — every line traces to a source resource the physician can open."
+    - "Created an evaluation set from 1,200 de-identified charts scored by clinicians, wired into CI as a regression gate."
+    - "Set per-tenant token budgets with model routing, keeping cost per summary under a cent at 1.4M notes a month."
+  architecture: >-
+    Java and Spring Boot services on EKS, orchestration over Kafka with
+    idempotent consumers, a FHIR-shaped document store, retrieval from
+    OpenSearch, and model calls through an internal gateway that enforces PII
+    redaction, audit logging and spend caps. Datadog dashboards per tenant.
+  metrics:
+    - {value: "35%", label: "reduction in record-review time"}
+    - {value: "1.4M", label: "notes summarised per month"}
+    - {value: "0.9¢", label: "cost per summary at steady state"}
+  stack: [Java, Spring Boot, EKS, Kafka, HL7 FHIR, OpenSearch]
+
+- slug: relayd
+  name: Relayd
+  mono: RD
+  domain: relayd.io · product I built
+  type: Agentic AI
+  year: "2026"
+  role: Founder and engineer
+  tint: var(--color-accent)
+  headline: 220k agent runs a month
+  summary: >-
+    An orchestrator for long-running agent workflows: durable state, typed tool
+    contracts, compensation on failure, and human approval steps that survive a
+    redeploy mid-run.
+  problem: >-
+    Every agent framework I tried assumed the run finishes in one process. Real
+    workflows wait on a human for two days, call a flaky vendor API, and need to
+    resume exactly where they stopped — that is a durable-execution problem, not
+    a prompting problem.
+  approach:
+    - "Modelled each run as a state machine persisted per step, so a deploy or a crash resumes rather than restarts."
+    - "Gave every tool a typed contract with timeouts, retry policy and a compensating action, validated at registration."
+    - "Built an approval primitive: the run parks, notifies, and continues from the human decision with full audit trail."
+    - "Added a replay console — any historical run can be re-executed against a new prompt or model to see what would change."
+  architecture: >-
+    Spring Boot control plane on EKS, workflow state in Postgres with an outbox
+    pattern onto Kafka, workers scaled by queue depth via KEDA, and an
+    OpenTelemetry trace per run stitched through every tool call. Self-hostable
+    via Helm chart.
+  metrics:
+    - {value: "220k", label: "agent runs per month"}
+    - {value: "99.95%", label: "control-plane availability"}
+    - {value: "0", label: "runs lost to deploys since launch"}
+  stack: [Spring Boot, Kafka, Postgres, EKS, KEDA, OpenTelemetry]
+
+- slug: northgate-rails
+  name: Northgate Rails
+  mono: NR
+  domain: BFSI · payments core
+  type: Platform
+  year: "2024"
+  role: Technical architect
+  tint: var(--color-accent-2)
+  headline: 50M+ requests a day at 99.99%
+  summary: >-
+    An event-driven payments core for a financial-services platform: ledger,
+    reconciliation and settlement rebuilt around an append-only event log with
+    exactly-once effects.
+  problem: >-
+    The existing core did synchronous writes across four databases inside the
+    request path. A single slow downstream took the whole payment flow with it,
+    and month-end reconciliation was a manual spreadsheet exercise.
+  approach:
+    - "Moved to an append-only ledger with derived read models, so reconciliation became a query instead of a reconciliation job."
+    - "Introduced idempotency keys and transactional outbox to get exactly-once effects over at-least-once delivery."
+    - "Split settlement into its own bounded context with a compensation flow for partial failures."
+    - "Ran a six-week dual-write migration with shadow comparison before cutting traffic over."
+  architecture: >-
+    Java and Spring Boot on Kubernetes, Kafka as the event backbone with schema
+    registry, Cassandra for the ledger and Postgres for read models, Redis for
+    idempotency, and full request tracing through Datadog with SLO-based
+    alerting.
+  metrics:
+    - {value: "50M+", label: "requests per day"}
+    - {value: "99.99%", label: "uptime sustained through migration"}
+    - {value: "6 hrs", label: "month-end close, down from 3 days"}
+  stack: [Java, Kafka, Cassandra, Kubernetes, Datadog, Terraform]
+
+- slug: kubestat
+  name: Kubestat
+  mono: KS
+  domain: kubestat.dev · app I built
+  type: App
+  year: "2025"
+  role: Founder and engineer
+  tint: var(--color-accent)
+  headline: 31% cluster spend removed
+  summary: >-
+    A reliability and cost console for EKS: which workloads are over-provisioned,
+    which are one node failure from an outage, and what each namespace actually
+    costs per week.
+  problem: >-
+    After migrating production from ECS to EKS I could see cluster metrics and I
+    could see the AWS bill, but nothing connected a specific Deployment to the
+    money it burned or the risk it carried.
+  approach:
+    - "Joined Prometheus workload metrics with Cost and Usage Report data to attribute spend down to a Deployment."
+    - "Built a risk score from replica spread, PDB coverage, node-group diversity and request-versus-limit ratios."
+    - "Added right-sizing recommendations with a one-click patch that opens a pull request against the manifest repo."
+    - "Weekly digest email so teams see their own drift without opening the tool."
+  architecture: >-
+    Java and Spring Boot backend, React front end, Prometheus remote-read plus
+    AWS CUR ingestion into Postgres and Timescale, agentless install as a
+    read-only IRSA role, deployed by Helm into the customer's own cluster.
+  metrics:
+    - {value: "31%", label: "average cluster spend removed"}
+    - {value: "340", label: "clusters observed"}
+    - {value: "11", label: "paying teams"}
+  stack: [Java, React, Prometheus, Postgres, Helm, EKS]
+
+- slug: tenderfoot
+  name: Tenderfoot
+  mono: TF
+  domain: iOS and Android · micro-lending
+  type: App
+  year: "2023"
+  role: Architect and backend lead
+  tint: var(--color-accent-2)
+  headline: 186k users, 4.6 store rating
+  summary: >-
+    A micro-lending app for first-time borrowers: eligibility in under a minute,
+    repayment nudges that people actually respond to, and a credit file that
+    improves with each cycle.
+  problem: >-
+    The lender's existing flow lost seven out of ten applicants at document
+    upload. Underwriting took two days, and by the time a decision came back the
+    borrower had gone elsewhere.
+  approach:
+    - "Rebuilt onboarding around progressive disclosure — eligibility first, documents only after a soft approval."
+    - "Moved underwriting to an event-driven rules engine with a decision in under ninety seconds for 82% of applicants."
+    - "Designed the repayment nudge schedule against actual delinquency data rather than fixed reminders."
+    - "Instrumented the whole funnel so product could see drop-off per step within the hour."
+  architecture: >-
+    React Native client, Spring Boot services on ECS, MySQL for the loan book,
+    Kafka for decisioning events, and an S3-backed document pipeline with KYC
+    vendor integrations behind a circuit breaker.
+  metrics:
+    - {value: "186k", label: "registered users"}
+    - {value: "90 sec", label: "median underwriting decision"}
+    - {value: "4.6", label: "average store rating"}
+  stack: [React Native, Spring Boot, MySQL, Kafka, ECS, S3]
+
+- slug: specflow
+  name: Specflow
+  mono: SF
+  domain: Engineering workflow · 7 teams
+  type: Agentic AI
+  year: "2026"
+  role: Architect and programme lead
+  tint: var(--color-accent)
+  headline: 60% faster delivery, 35 engineers
+  summary: >-
+    A spec-driven development workflow where the specification is the artefact
+    both humans and models work from — adopted across seven teams and
+    thirty-five engineers.
+  problem: >-
+    AI assistance was making individual engineers faster and the organisation no
+    faster. Work arrived as tickets, context lived in people's heads, and
+    generated code failed review for reasons no one had written down.
+  approach:
+    - "Defined a specification format covering intent, contracts, failure modes and acceptance criteria, kept in the repo beside the code."
+    - "Built tooling that generates implementation scaffolding, tests and review checklists from the spec."
+    - "Rolled out team by team with a baseline measurement first, so the 60% cycle-time claim came from before-and-after data."
+    - "Ran a weekly clinic for the first eight weeks — adoption failed everywhere I skipped it."
+  architecture: >-
+    A CLI and GitHub App over the model gateway, specs as versioned Markdown with
+    a JSON schema, generation and review hooks in CI, and a metrics pipeline into
+    the engineering dashboard built on Datadog, OpenSearch and Jira.
+  metrics:
+    - {value: "60%", label: "reduction in development cycle time"}
+    - {value: "7", label: "teams adopted"}
+    - {value: "35", label: "engineers on the workflow"}
+  stack: [Java, GitHub Actions, Datadog, OpenSearch, Jira, LLM gateway]
+
+- slug: anchor-cli
+  name: Anchor CLI
+  mono: AC
+  domain: Open source · MIT
+  type: Open source
+  year: "2024"
+  role: Author and maintainer
+  tint: var(--color-accent-2)
+  headline: 1,240 stars, 40-minute bootstrap
+  summary: >-
+    A command-line tool that stands up a production-shaped EKS environment — VPC,
+    node groups, IRSA, ingress, observability and a deploy pipeline — from one
+    config file.
+  problem: >-
+    Every migration I ran repeated the same four days of Terraform archaeology
+    before anything could be deployed. The defaults teams reach for on day one
+    are the ones they regret in month six.
+  approach:
+    - "Encoded the opinionated defaults: private subnets, IRSA over node roles, PDBs, resource requests, and an ingress with sane timeouts."
+    - "Generated Terraform rather than wrapping it, so teams keep an auditable plan they own."
+    - "Shipped a drift check that flags where a cluster has diverged from the config it was created from."
+    - "Documented every default with the incident that justifies it."
+  architecture: >-
+    Java-based CLI distributed as a native image, generating Terraform modules
+    and Helm values; optional GitHub Actions workflow templates for
+    plan-and-apply with environment gates.
+  metrics:
+    - {value: "1,240", label: "GitHub stars"}
+    - {value: "40 min", label: "from empty account to running ingress"}
+    - {value: "23", label: "outside contributors"}
+  stack: [Java, Terraform, Helm, EKS, GitHub Actions]

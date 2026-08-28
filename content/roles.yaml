@@ -1,0 +1,44 @@
+- years: "Aug 2021 — Aug 2026"
+  title: "Technical Architect / Engineering Manager"
+  company: "AthenaHealth, Bengaluru"
+  note: >-
+    Owned architecture for a platform serving 50M+ requests a day at 99.99%
+    uptime. Led the ECS-to-EKS migration, clinical interoperability with Cerner,
+    CommonWell and CareQuality, an AI summarisation engine, and the spec-driven
+    workflow adopted by 35 engineers. Managed a team of ten.
+
+- years: "Aug 2018 — Aug 2021"
+  title: "Lead Member Technical Staff"
+  company: "AthenaHealth, Bengaluru"
+  note: >-
+    Technical design and architecture for cloud-native healthcare services — HLD
+    and LLD, microservices and event-driven patterns, design and code review
+    across the platform.
+
+- years: "Jul 2016 — Aug 2018"
+  title: "Senior Software Engineer"
+  company: "Hcentive, Noida"
+  note: >-
+    Prototyping, design and architecture for a mobile micro-financial product.
+    Drove delivery end to end from sprint planning through QA.
+
+- years: "Dec 2014 — Jul 2016"
+  title: "Team Lead"
+  company: "Sapient Global Markets, Gurgaon"
+  note: >-
+    Back-end modules for a low-latency capital-markets platform, leading a small
+    team and working as software designer in the financial domain.
+
+- years: "Feb 2014 — Dec 2014"
+  title: "Senior Software Engineer"
+  company: "Nagarro, Gurgaon"
+  note: >-
+    Built the seller panel from scratch on Spring Boot, working directly with
+    client teams on requirements.
+
+- years: "Jan 2010 — Feb 2014"
+  title: "Java Software Engineer"
+  company: "Utiba Mobility / Amdocs, Gurgaon"
+  note: >-
+    Application components, role-based access control and JUnit test suites on
+    enterprise telecom and payments products.
