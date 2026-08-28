@@ -10,7 +10,13 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from app.config import get_settings
-from app.content import featured_projects, get_content, get_project, project_types
+from app.content import (
+    featured_projects,
+    get_content,
+    get_post,
+    get_project,
+    project_types,
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
@@ -97,6 +103,45 @@ def create_app() -> FastAPI:
             project=project,
             next_project=projects[(idx + 1) % len(projects)],
         )
+
+    @app.get("/agentic", response_class=HTMLResponse)
+    async def agentic(request: Request):
+        return render(request, "agentic.html", nav_active="agentic")
+
+    @app.get("/services", response_class=HTMLResponse)
+    async def services(request: Request):
+        return render(
+            request,
+            "services.html",
+            nav_active="services",
+            packages=app.state.content.packages,
+        )
+
+    @app.get("/about", response_class=HTMLResponse)
+    async def about(request: Request):
+        return render(
+            request,
+            "about.html",
+            nav_active="about",
+            roles=app.state.content.roles,
+            skills=app.state.content.skills,
+        )
+
+    @app.get("/writing", response_class=HTMLResponse)
+    async def writing(request: Request):
+        return render(
+            request,
+            "writing.html",
+            nav_active="writing",
+            posts=app.state.content.posts,
+        )
+
+    @app.get("/writing/{slug}", response_class=HTMLResponse)
+    async def post_detail(request: Request, slug: str):
+        post = get_post(slug)
+        if post is None:
+            return render(request, "404.html", nav_active="", status_code=404)
+        return render(request, "post.html", nav_active="writing", post=post)
 
     @app.exception_handler(StarletteHTTPException)
     async def not_found(request: Request, exc: StarletteHTTPException):

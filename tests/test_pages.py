@@ -98,7 +98,16 @@ from urllib.parse import urljoin  # noqa: E402
 
 # Pages that are routable today. Tasks 5–12 add routes; extend this list so the
 # asset-resolution guard below automatically covers them.
-ROUTABLE_PAGES = ["/", "/work", "/work/loaderhouse"]
+ROUTABLE_PAGES = [
+    "/",
+    "/work",
+    "/work/loaderhouse",
+    "/agentic",
+    "/services",
+    "/about",
+    "/writing",
+    "/writing/the-eval-set-is-the-product",
+]
 
 _SKIP_REF_PREFIXES = ("data:", "http://", "https://", "//", "mailto:", "tel:", "#")
 
@@ -353,3 +362,30 @@ def test_404_unknown_nested_post_style_path(client):
     assert "text/html" in r.headers["content-type"]
     assert '"detail"' not in r.text
     assert "That page doesn" in r.text
+
+
+# ---------------------------------------------------------------------------
+# Phase 1: placeholder routes for /agentic, /services, /about, /writing,
+# /writing/{slug} — real page markup is ported by follow-on agents.
+# ---------------------------------------------------------------------------
+
+
+def test_new_placeholder_routes_return_200(client):
+    for path in [
+        "/agentic",
+        "/services",
+        "/about",
+        "/writing",
+        "/writing/the-eval-set-is-the-product",
+    ]:
+        r = client.get(path)
+        assert r.status_code == 200, f"{path} returned {r.status_code}"
+        assert "text/html" in r.headers["content-type"]
+
+
+def test_writing_unknown_slug_is_html_404(client):
+    r = client.get("/writing/no-such-post")
+    assert r.status_code == 404
+    assert "text/html" in r.headers["content-type"]
+    assert "application/json" not in r.headers["content-type"]
+    assert '"detail"' not in r.text
