@@ -39,9 +39,25 @@ def test_plates_filters_reach_page(client):
 def test_header_nav_active_colouring(client):
     # Home has no active nav item, so every nav link uses --color-text, and
     # the accent-active branch must not leak onto the home page.
-    body = client.get("/").text
-    assert "var(--color-text)" in body
-    assert "nav_active" not in body  # loop/if variable fully resolved
+    home = client.get("/").text
+    assert "var(--color-text)" in home
+    assert "nav_active" not in home  # loop/if variable fully resolved
+
+    home_work_link = (
+        'href="/work" class="und" style="font-size:14px;color:var(--color-text)">Work</a>'
+    )
+    accent_work_link = (
+        'href="/work" class="und" style="font-size:14px;color:var(--color-accent)">Work</a>'
+    )
+    # On the home page the Work link is NOT accented.
+    assert home_work_link in home
+    assert accent_work_link not in home
+
+    # On /work the active-nav {% if nav_active == 'work' %} branch really fires:
+    # the Work link renders with the accent colour, and no longer with --color-text.
+    work = client.get("/work").text
+    assert accent_work_link in work
+    assert home_work_link not in work
 
 
 def test_footer_newsletter_form_wired(client):
@@ -82,7 +98,7 @@ from urllib.parse import urljoin  # noqa: E402
 
 # Pages that are routable today. Tasks 5–12 add routes; extend this list so the
 # asset-resolution guard below automatically covers them.
-ROUTABLE_PAGES = ["/"]
+ROUTABLE_PAGES = ["/", "/work", "/work/loaderhouse"]
 
 _SKIP_REF_PREFIXES = ("data:", "http://", "https://", "//", "mailto:", "tel:", "#")
 
@@ -206,3 +222,134 @@ def test_home_testimonial_from_site_yaml(client, app):
     assert sentinel in body, "testimonial author is not rendered from site.testimonial"
     assert "Ravi Menon" not in body, "design's hard-coded testimonial author still present"
     assert "the payments core has not had a Sev-1" in body
+
+
+# ---------------------------------------------------------------------------
+# Task 5: /work index and /work/{slug} project detail pages
+# ---------------------------------------------------------------------------
+
+
+def test_work_index(client):
+    body = client.get("/work").text
+    assert client.get("/work").status_code == 200
+    for slug in ["loaderhouse", "chartwell", "relayd", "northgate-rails",
+                 "kubestat", "tenderfoot", "specflow", "anchor-cli"]:
+        assert f'href="/work/{slug}"' in body
+    assert "Agentic AI" in body  # a filter label
+
+
+def test_project_detail(client):
+    r = client.get("/work/northgate-rails")
+    assert r.status_code == 200
+    assert "Northgate Rails" in r.text
+    assert "50M+" in r.text
+    assert "append-only" in r.text  # from problem/approach text
+
+
+def test_project_detail_unknown_is_404(client):
+    r = client.get("/work/does-not-exist")
+    assert r.status_code == 404
+    assert "text/html" in r.headers["content-type"]
+
+
+def test_work_index_filter_labels_come_from_project_types(client):
+    # Filter buttons are data-derived via project_types() in first-seen order —
+    # NOT the design's hard-coded FILTERS array, which orders App before
+    # Agentic AI. Pin the exact data-derived order and rendered markup.
+    body = client.get("/work").text
+    labels = re.findall(
+        r'<button type="button" class="filter-btn" data-filter="([^"]+)">\1</button>', body
+    )
+    assert labels == ["All", "Website", "Agentic AI", "Platform", "App", "Open source"]
+
+
+def test_work_cards_carry_client_filter_hooks(client):
+    # Task 14's client-side filter depends on BOTH hooks on every card.
+    body = client.get("/work").text
+    assert body.count('class="g-row work-card lift"') == 8
+    assert 'data-type="Website"' in body        # loaderhouse
+    assert 'data-type="Platform"' in body       # northgate-rails
+    assert 'data-type="Open source"' in body    # anchor-cli
+    assert body.count('data-type="Agentic AI"') == 3  # chartwell, relayd, specflow
+
+
+def test_work_index_renders_all_eight_cards_with_stack_and_summary(client):
+    body = client.get("/work").text
+    # exactly one "/work/{slug}" card link per project; header/footer link to
+    # "/work" (no trailing slash) so they are not counted here.
+    assert body.count('href="/work/') == 8
+    # loaderhouse summary prose (rendered from the projects loop, not hard-coded)
+    assert "A freight load board for mid-size Indian carriers" in body
+    # per-card stack chips
+    assert "Spring Boot" in body and "Cassandra" in body
+    # headline column
+    assert "50M+ requests a day at 99.99%" in body  # northgate-rails headline
+
+
+def test_project_detail_unique_content(client):
+    # Content that exists ONLY on northgate-rails; a stub or the wrong project
+    # would fail each of these.
+    body = client.get("/work/northgate-rails").text
+    assert "synchronous writes across four databases inside the request path" in body  # problem
+    assert "Kafka as the event backbone with schema" in body  # architecture prose
+    assert "month-end close, down from 3 days" in body  # a metric label
+    assert "6 hrs" in body                              # its metric value
+    assert body.count("Cassandra") >= 2                 # stack chips + request-path row
+    assert "freight load board" not in body             # sibling prose must not leak
+
+
+def test_project_detail_next_link_is_cyclic(client):
+    # anchor-cli is projects[7] (last); its "next" wraps to projects[0] loaderhouse.
+    body = client.get("/work/anchor-cli").text
+    assert 'href="/work/loaderhouse"' in body
+    assert "Next: Loaderhouse" in body
+    # loaderhouse -> chartwell
+    body2 = client.get("/work/loaderhouse").text
+    assert 'href="/work/chartwell"' in body2
+    assert "Next: Chartwell Summary" in body2
+
+
+def test_project_detail_has_back_to_work_and_metrics_loop(client):
+    body = client.get("/work/kubestat").text
+    assert 'href="/work"' in body
+    assert "All work" in body
+    # all three kubestat metric values from the metrics loop
+    for value in ("31%", "340", "11"):
+        assert value in body
+    assert "average cluster spend removed" in body  # a metric label
+
+
+def test_project_detail_no_unrendered_vars(client):
+    body = client.get("/work/relayd").text
+    assert "{{" not in body
+    assert "nextProject" not in body  # design var name fully converted
+    assert "artAlt" not in body
+
+
+def test_404_unknown_slug_renders_html_page_not_json(client):
+    r = client.get("/work/nope")
+    assert r.status_code == 404
+    assert "text/html" in r.headers["content-type"]
+    assert "application/json" not in r.headers["content-type"]
+    assert '"detail"' not in r.text          # not the default JSON body
+    assert "That page doesn" in r.text       # 404.html copy
+    assert "PUNEET BEHL" in r.text           # rendered with full site chrome
+    assert "{{" not in r.text
+
+
+def test_404_unknown_top_level_path(client):
+    r = client.get("/nonsense")
+    assert r.status_code == 404
+    assert "text/html" in r.headers["content-type"]
+    assert "Not found" in r.text
+    assert "PUNEET BEHL" in r.text
+    assert '"detail"' not in r.text
+
+
+def test_404_unknown_nested_post_style_path(client):
+    # Future /writing/{slug} territory: still the HTML 404, never a JSON detail.
+    r = client.get("/writing/does-not-exist")
+    assert r.status_code == 404
+    assert "text/html" in r.headers["content-type"]
+    assert '"detail"' not in r.text
+    assert "That page doesn" in r.text

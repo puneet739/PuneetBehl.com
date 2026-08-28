@@ -58,3 +58,7 @@ a:hover .mono-mark{transform:translate(-8px,-10px);opacity:.44}
 
 /* honeypot field — visually removed, still in the DOM for bots */
 .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
+/* work index: filter buttons (inert until Task 14 wires site.js) */
+.filter-btn{cursor:pointer}
+.js .work-card.hide{display:none}

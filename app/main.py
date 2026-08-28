@@ -6,10 +6,11 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from itsdangerous import URLSafeTimedSerializer
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from app.config import get_settings
-from app.content import featured_projects, get_content
+from app.content import featured_projects, get_content, get_project, project_types
 
 BASE_DIR = Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
@@ -71,6 +72,37 @@ def create_app() -> FastAPI:
             featured=featured_projects(),
             stats=app.state.content.site.home_stats,
         )
+
+    @app.get("/work", response_class=HTMLResponse)
+    async def work(request: Request):
+        return render(
+            request,
+            "work.html",
+            nav_active="work",
+            projects=app.state.content.projects,
+            filters=project_types(),
+        )
+
+    @app.get("/work/{slug}", response_class=HTMLResponse)
+    async def project_detail(request: Request, slug: str):
+        projects = app.state.content.projects
+        project = get_project(slug)
+        if project is None:
+            return render(request, "404.html", nav_active="", status_code=404)
+        idx = projects.index(project)
+        return render(
+            request,
+            "project.html",
+            nav_active="work",
+            project=project,
+            next_project=projects[(idx + 1) % len(projects)],
+        )
+
+    @app.exception_handler(StarletteHTTPException)
+    async def not_found(request: Request, exc: StarletteHTTPException):
+        if exc.status_code == 404:
+            return render(request, "404.html", status_code=404)
+        raise exc
 
     return app
 

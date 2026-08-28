@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{{ project.name }} — Puneet Behl{% endblock %}
+{% block description %}{{ project.summary }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block main %}
+<main style="padding:48px 0 96px">
+  <a href="/work" style="font-size:13px">← All work</a>
+  <div class="g-hero" style="display:grid;grid-template-columns:1.5fr 1fr;gap:56px;align-items:start;margin-top:28px">
+    <div>
+      <p style="font:600 11px/1 var(--font-heading);letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 14px">{{ project.type }} · {{ project.year }}</p>
+      <h1 style="font-size:50px;margin:0 0 10px">{{ project.name }}</h1>
+      <p style="font-size:15px;color:var(--color-neutral-700);margin:0 0 24px">{{ project.domain }} · {{ project.role }}</p>
+      <p style="font-size:19px;line-height:1.6;margin:0">{{ project.summary }}</p>
+    </div>
+    <figure class="frame projhero" style="aspect-ratio:8/5;width:100%;max-width:480px;margin-left:auto">
+      <div class="art art-{{ project.slug }}" role="img" aria-label="{{ project.name }} — {{ project.summary.split('—')[0].strip() }}"></div>
+      <div class="dot-screen" style="position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.26"></div>
+    </figure>
+  </div>
+
+  <div class="g-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px;border-top:4px solid var(--color-text);padding-top:28px">
+    {% for m in project.metrics %}
+      <div><div style="font:600 clamp(30px,3.6vw,44px)/0.95 var(--font-heading);color:var(--color-accent-700)">{{ m.value }}</div><p style="font-size:13.5px;color:var(--color-neutral-700);margin:8px 0 0">{{ m.label }}</p></div>
+    {% endfor %}
+  </div>
+
+  <div class="g-2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px">
+    <section>
+      <h2 style="font-size:24px;margin:0 0 14px">The problem</h2>
+      <p style="font-size:16px;line-height:1.65;color:var(--color-neutral-800);margin:0">{{ project.problem }}</p>
+    </section>
+    <section>
+      <h2 style="font-size:24px;margin:0 0 14px">What I did</h2>
+      <ul style="margin:0;padding-left:20px;font-size:16px;line-height:1.65;color:var(--color-neutral-800)">
+        {% for a in project.approach %}<li style="margin-bottom:10px">{{ a }}</li>{% endfor %}
+      </ul>
+    </section>
+  </div>
+
+  <section style="margin-top:56px;border-top:1px solid var(--color-text);padding-top:24px">
+    <h2 style="font-size:24px;margin:0 0 16px">Architecture</h2>
+    <p style="font-size:16px;line-height:1.65;color:var(--color-neutral-800);max-width:44em;margin:0 0 22px">{{ project.architecture }}</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">{% for s in project.stack %}<span class="tag tag-accent">{{ s }}</span>{% endfor %}</div>
+  </section>
+
+  <section style="margin-top:48px">
+    <p style="font:600 11px/1 var(--font-heading);letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600);margin:0 0 14px">Request path</p>
+    <div style="position:relative;overflow:hidden;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);padding:18px 0">
+      <div class="sweep"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:relative">
+        {% for s in project.stack %}
+          <span style="display:flex;align-items:center;gap:8px"><span style="font:600 13.5px var(--font-heading);border:1px solid var(--color-divider);padding:7px 12px;background:var(--color-bg);white-space:nowrap">{{ s }}</span><span class="pdot" style="width:5px;height:5px;border-radius:50%;background:var(--color-accent)"></span></span>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:56px;border-top:1px solid var(--color-divider);padding-top:24px;display:flex;justify-content:space-between;gap:24px;align-items:center;flex-wrap:wrap">
+    <p style="margin:0;font-size:16px;color:var(--color-neutral-700)">Similar problem on your side?</p>
+    <div style="display:flex;gap:10px"><a href="/work/{{ next_project.slug }}" class="btn btn-secondary" style="font-size:14px">Next: {{ next_project.name }} →</a><a href="/contact" class="btn btn-primary" style="font-size:14px">Book a call</a></div>
+  </section>
+</main>
+{% endblock %}
