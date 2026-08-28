@@ -78,19 +78,35 @@ def test_favicon_served(client):
 
 
 import re  # noqa: E402
+from urllib.parse import urljoin  # noqa: E402
 
 # Pages that are routable today. Tasks 5–12 add routes; extend this list so the
 # asset-resolution guard below automatically covers them.
 ROUTABLE_PAGES = ["/"]
 
+_SKIP_REF_PREFIXES = ("data:", "http://", "https://", "//", "mailto:", "tel:", "#")
 
-def _html_static_refs(html):
-    """src=/href= values that point at the /static/ mount (already root-relative)."""
+
+def _html_static_refs(html, page_path):
+    """Asset URLs a browser would fetch for a page served at ``page_path``.
+
+    Collects every ``src="…"`` (img/script/iframe) and ``href="…"`` on ``<link>``
+    elements only — stylesheets and icons — and resolves each the way a browser
+    would, against the requesting page's URL. References are collected whether or
+    not they are already ``/static/``-prefixed, so a malformed ``src="assets/x"``
+    resolves to ``/assets/x`` and is caught as a 404.
+
+    ``<a href>`` navigation is deliberately excluded: routes like /work, /contact
+    and /agentic are built by later tasks and legitimately 404 today.
+    """
+    raw = re.findall(r'\ssrc="([^"]+)"', html)
+    raw += re.findall(r'<link\b[^>]*?\shref="([^"]+)"', html)
     refs = set()
-    for m in re.finditer(r'(?:src|href)="([^"]+)"', html):
-        val = m.group(1)
-        if "/static/" in val:
-            refs.add(val)
+    for val in raw:
+        val = val.strip()
+        if not val or val.startswith(_SKIP_REF_PREFIXES):
+            continue
+        refs.add(urljoin(page_path, val))
     return refs
 
 
@@ -114,14 +130,14 @@ def test_referenced_static_assets_resolve(client):
     for page in ROUTABLE_PAGES:
         r = client.get(page)
         assert r.status_code == 200, f"page {page!r} did not load ({r.status_code})"
-        refs |= _html_static_refs(r.text)
+        refs |= _html_static_refs(r.text, page)
 
     css = client.get("/static/css/site.css")
     assert css.status_code == 200
     refs |= _css_url_refs(css.text)
 
-    assert len(refs) >= 9, (
-        f"only extracted {len(refs)} static references ({sorted(refs)}) — the "
+    assert len(refs) >= 12, (
+        f"only extracted {len(refs)} asset references ({sorted(refs)}) — the "
         f"extractor is broken; this test must not pass vacuously"
     )
 
