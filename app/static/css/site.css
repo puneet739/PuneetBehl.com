@@ -59,7 +59,9 @@ a:hover .mono-mark{transform:translate(-8px,-10px);opacity:.44}
 /* honeypot field — visually removed, still in the DOM for bots */
 .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
 
-/* work index: filter buttons */
-.js .work-card.hide{display:none}
+/* work index: filter buttons.
+   !important is load-bearing: each card carries an inline display:grid from the
+   ported design, which otherwise wins over this rule and nothing ever hides. */
+.js .work-card.hide{display:none !important}
 .filter-btn{cursor:pointer;font-family:var(--font-body);border:1px solid var(--color-divider);background:transparent;color:var(--color-text);padding:5px 13px;font-size:12.5px}
 .filter-btn.is-active{background:var(--color-accent);color:var(--color-bg);border-color:var(--color-accent)}

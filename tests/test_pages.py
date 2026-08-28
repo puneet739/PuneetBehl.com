@@ -415,3 +415,15 @@ def test_pages_render_without_js(client):
     css = client.get("/static/css/site.css").text
     assert ".reveal { opacity: 1; }" in css
     assert ".js .reveal:not(.in)" in css
+
+
+def test_work_card_hide_rule_beats_inline_display():
+    # Each work card carries an inline display:grid, so the hide rule only wins
+    # with !important. Without it the filter marks a button active and nothing
+    # actually disappears.
+    from pathlib import Path
+
+    css = Path("app/static/css/site.css").read_text()
+    markup = Path("app/templates/work.html").read_text()
+    assert ".js .work-card.hide{display:none !important}" in css
+    assert "display:grid" in markup  # the inline style this rule has to override

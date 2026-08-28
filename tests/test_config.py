@@ -19,3 +19,16 @@ def test_dry_run_true_when_disabled_but_key_missing():
 def test_dry_run_defaults_failsafe_with_only_secret_key():
     s = Settings(secret_key="x")
     assert s.dry_run is True
+
+
+def test_create_app_configures_info_logging():
+    # The dry-run record is logged at INFO; if nothing installs a root handler
+    # at that level, a submission leaves no trace at all.
+    import logging
+
+    from app.main import create_app
+
+    create_app()
+    root = logging.getLogger()
+    assert root.handlers
+    assert logging.getLogger("app.emailer").getEffectiveLevel() <= logging.INFO

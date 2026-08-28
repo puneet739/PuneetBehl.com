@@ -118,3 +118,23 @@ def test_build_subscribe_text():
 def test_utc_now_str_shape():
     assert utc_now_str().endswith(" UTC")
     assert len(utc_now_str()) == len("2026-08-28 14:03 UTC")
+
+
+async def test_dry_run_logs_the_payload(caplog):
+    s = _settings(mail_dry_run=True)
+    with caplog.at_level("INFO", logger="app.emailer"):
+        await send_form_email(s, subject="New enquiry", text="the body", reply_to=None)
+    assert "DRY RUN email" in caplog.text
+    assert "the body" in caplog.text
+
+
+async def test_failure_logs_the_payload_for_recovery(caplog):
+    s = _settings()
+    with respx.mock:
+        respx.post("https://api.resend.com/emails").mock(
+            return_value=httpx.Response(500, text="nope")
+        )
+        with caplog.at_level("ERROR", logger="app.emailer"):
+            await send_form_email(s, subject="New enquiry", text="the body",
+                                  reply_to=None)
+    assert "the body" in caplog.text

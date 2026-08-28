@@ -1,4 +1,5 @@
 import datetime as dt
+import logging
 from pathlib import Path
 
 from fastapi import FastAPI, Form, Request
@@ -46,6 +47,14 @@ def _dateline() -> str:
 
 
 def create_app() -> FastAPI:
+    # Without this, nothing installs a root handler under uvicorn and every
+    # INFO record is dropped — including the dry-run copy of each submission,
+    # which is the only record of a message when Resend is not configured.
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)-8s %(name)s: %(message)s",
+    )
+
     settings = get_settings()
     app = FastAPI(title="PuneetBehl.com", docs_url=None, redoc_url=None, openapi_url=None)
     app.state.settings = settings

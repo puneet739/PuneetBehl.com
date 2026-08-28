@@ -27,9 +27,9 @@
       {% else %}
       <form method="post" action="/subscribe" style="display:flex;flex-direction:column;gap:8px">
         <p style="font-size:13px;color:var(--color-neutral-700);margin:0">One note a month on agentic architecture and platform work.</p>
-        <input class="input" type="email" name="email" required placeholder="you@company.com">
+        <input class="input" type="email" name="email" required autocomplete="email" placeholder="you@company.com">
         <input type="hidden" name="from" value="{{ request.url.path }}">
-        <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
         <input type="hidden" name="ts" value="{{ form_ts }}">
         <button type="submit" class="btn btn-secondary" style="font-size:13.5px">Subscribe</button>
       </form>

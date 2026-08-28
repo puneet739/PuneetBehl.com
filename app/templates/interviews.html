@@ -69,8 +69,8 @@
       {% else %}
       <form method="post" action="/interviews" data-ajax style="border-top:4px solid var(--color-text);padding-top:20px;display:flex;flex-direction:column;gap:16px">
         {% include "_form_errors.html" %}
-        <div class="field"><label for="iv-name">Name</label><input id="iv-name" name="name" class="input" required maxlength="100" value="{{ values.name | default('', true) }}" placeholder="Your name"></div>
-        <div class="field"><label for="iv-email">Email</label><input id="iv-email" name="email" class="input" type="email" required maxlength="200" value="{{ values.email | default('', true) }}" placeholder="you@email.com"></div>
+        <div class="field"><label for="iv-name">Name</label><input id="iv-name" name="name" class="input" required maxlength="100" autocomplete="name" value="{{ values.name | default('', true) }}" placeholder="Your name"></div>
+        <div class="field"><label for="iv-email">Email</label><input id="iv-email" name="email" class="input" type="email" required maxlength="200" autocomplete="email" value="{{ values.email | default('', true) }}" placeholder="you@email.com"></div>
         <div class="field"><label for="iv-format">Format</label>
           <select id="iv-format" name="format" class="input">
             {% for f in interview_formats %}<option{% if values.format == f %} selected{% endif %}>{{ f }}</option>{% endfor %}
