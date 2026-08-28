@@ -1,0 +1,67 @@
+name: CI
+
+# Main-branch only: pushes to main, and pull requests that target main.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install
+        run: pip install -e ".[dev]"
+
+      - name: Run tests
+        run: pytest -q
+        env:
+          SECRET_KEY: ci-secret
+          MAIL_DRY_RUN: "true"
+
+  docker:
+    name: Docker image
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: puneetbehl-site:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # A build that succeeds but cannot serve a request is not a passing build.
+      - name: Smoke-test the image
+        run: |
+          docker run -d --name site -p 8000:8000 \
+            -e SECRET_KEY=ci-secret -e MAIL_DRY_RUN=true \
+            puneetbehl-site:${{ github.sha }}
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:8000/healthz && break
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:8000/healthz | grep -q '"ok"'
+          curl -sf http://127.0.0.1:8000/ | grep -q "PUNEET BEHL"
+          curl -sf http://127.0.0.1:8000/contact | grep -q "Project enquiry"
+
+      - name: Container logs on failure
+        if: failure()
+        run: docker logs site
