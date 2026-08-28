@@ -1,0 +1,60 @@
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--color-bg);color:var(--color-text)}
+a{color:var(--color-accent);text-decoration:none}
+a:hover{color:var(--color-accent-700)}
+.dot-screen{background-image:radial-gradient(circle,rgba(32,30,29,.18) 30%,transparent 32%);background-size:4px 4px}
+.art{position:absolute;inset:0;background-size:cover;background-position:top left;background-repeat:no-repeat}
+.art-loaderhouse{background-image:url(assets/loaderhouse.svg)}
+.art-chartwell{background-image:url(assets/chartwell.svg)}
+.art-relayd{background-image:url(assets/relayd.svg)}
+.art-northgate-rails{background-image:url(assets/northgate-rails.svg)}
+.art-kubestat{background-image:url(assets/kubestat.svg)}
+.art-tenderfoot{background-image:url(assets/tenderfoot.svg)}
+.art-specflow{background-image:url(assets/specflow.svg)}
+.art-anchor-cli{background-image:url(assets/anchor-cli.svg)}
+.art-interview{background-image:url(assets/interview-scorecard.svg)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes sweep{0%{transform:translateX(-70%)}100%{transform:translateX(180%)}}
+@keyframes dashflow{to{stroke-dashoffset:-56}}
+@keyframes pulseDot{0%,100%{opacity:.3;transform:scale(.85)}50%{opacity:1;transform:scale(1.2)}}
+.reveal{opacity:0}
+.reveal.in{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.sweep{position:absolute;top:0;bottom:0;width:34%;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--color-accent) 18%,transparent),transparent);animation:sweep 4.2s linear infinite}
+.flow{stroke-dasharray:5 7;animation:dashflow 1.5s linear infinite}
+.pdot{animation:pulseDot 2.4s ease-in-out infinite}
+#progress{position:fixed;top:0;left:0;height:2px;background:var(--color-accent);width:0;z-index:60}
+.frame{position:relative;overflow:hidden;background:var(--color-neutral-200)}
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--color-text) 12%,transparent)}
+.tilt{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+a:hover .tilt{transform:scale(1.02)}
+.mono-mark{transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .5s}
+a:hover .mono-mark{transform:translate(-8px,-10px);opacity:.44}
+.und{position:relative}
+@media (prefers-reduced-motion:reduce){.reveal,.reveal.in{opacity:1;animation:none}.sweep,.flow,.pdot{animation:none}}
+.lift{transition:transform .18s ease,opacity .18s ease}
+.lift:hover{transform:translateY(-2px)}
+.und:hover{text-decoration:underline;text-underline-offset:4px}
+@media (max-width:1000px){
+ .g-hero{grid-template-columns:1fr !important;gap:36px !important}
+ .aside-top{padding-top:0 !important}
+ .g-4,.g-3,.g-foot{grid-template-columns:1fr 1fr !important}
+ .g-row{grid-template-columns:132px 1fr !important}
+ .portrait{max-width:280px !important}
+ .projhero{max-width:100% !important;margin-left:0 !important}
+ .g-row .rail{text-align:left !important;grid-column:2}
+ header nav > span{margin-left:0 !important}
+}
+@media (max-width:640px){
+ .g-2,.g-3,.g-4,.g-foot,.g-row,.g-tl{grid-template-columns:1fr !important;gap:18px !important}
+ h1{font-size:32px !important}
+ h2{font-size:23px !important}
+ main{padding-top:32px !important}
+ .g-row .thumb{max-width:160px}
+}
+
+/* no-JS fallback: reveal animations only apply once site.js adds .in */
+.reveal { opacity: 1; }
+.js .reveal:not(.in) { opacity: 0; }
+
+/* honeypot field — visually removed, still in the DOM for bots */
+.hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }

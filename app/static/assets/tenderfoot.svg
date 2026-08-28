@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" font-family="Georgia,'Times New Roman',serif">
+<defs><pattern id="d" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.05" fill="#201e1d" opacity="0.16"></circle></pattern></defs>
+<rect width="800" height="500" fill="#f3f2f2"></rect><text x="40" y="52" font-size="10" fill="#7d7979" letter-spacing="1.4">TENDERFOOT · MICRO-LENDING · IOS &amp; ANDROID</text><rect x="140" y="74" width="240" height="382" rx="26" fill="#ffffff" stroke="#201e1d" stroke-width="1.4"></rect><rect x="236" y="86" width="48" height="5" rx="2.5" fill="#d7d3d3"></rect><text x="164" y="132" font-size="9.5" fill="#7d7979" letter-spacing="1">STEP 1 OF 3</text>
+<text x="164" y="160" font-size="18" font-weight="600" fill="#201e1d">How much do you</text><text x="164" y="182" font-size="18" font-weight="600" fill="#201e1d">need today?</text>
+<text x="164" y="228" font-size="30" font-weight="600" fill="#201e1d">₹ 25,000</text>
+<line x1="164" y1="252" x2="356" y2="252" stroke="#d7d3d3" stroke-width="3"></line><line x1="164" y1="252" x2="272" y2="252" stroke="#0088b0" stroke-width="3"></line><circle cx="272" cy="252" r="9" fill="#0088b0"></circle>
+<text x="164" y="278" font-size="10.5" fill="#7d7979">₹5,000</text><text x="356" y="278" font-size="10.5" fill="#7d7979" text-anchor="end">₹60,000</text>
+<text x="164" y="312" font-size="11.5" fill="#605d5d">3 months · ₹8,750 / month</text>
+<text x="164" y="332" font-size="11.5" fill="#605d5d">No documents until approved</text>
+<rect x="164" y="360" width="192" height="40" rx="4" fill="#0088b0"></rect><text x="260" y="385" font-size="13" fill="#f3f2f2" text-anchor="middle">Check eligibility</text>
+<text x="260" y="424" font-size="10" fill="#7d7979" text-anchor="middle">Soft check · no credit impact</text><rect x="420" y="74" width="240" height="382" rx="26" fill="#ffffff" stroke="#201e1d" stroke-width="1.4"></rect><rect x="516" y="86" width="48" height="5" rx="2.5" fill="#d7d3d3"></rect><circle cx="540" cy="150" r="30" fill="none" stroke="#0088b0" stroke-width="2"></circle><path d="M528 150 l9 10 l16 -20" fill="none" stroke="#0088b0" stroke-width="2.4"></path>
+<text x="540" y="208" font-size="18" font-weight="600" fill="#201e1d" text-anchor="middle">Approved</text>
+<text x="540" y="230" font-size="11.5" fill="#7d7979" text-anchor="middle">in 74 seconds</text>
+<line x1="444" y1="254" x2="636" y2="254" stroke="#eae7e7"></line><text x="444" y="282" font-size="11.5" fill="#7d7979">Amount</text><text x="636" y="282" font-size="12.5" fill="#201e1d" text-anchor="end">₹25,000</text>
+<line x1="444" y1="292" x2="636" y2="292" stroke="#f8f4f4"></line><text x="444" y="312" font-size="11.5" fill="#7d7979">Tenure</text><text x="636" y="312" font-size="12.5" fill="#201e1d" text-anchor="end">3 months</text>
+<line x1="444" y1="322" x2="636" y2="322" stroke="#f8f4f4"></line><text x="444" y="342" font-size="11.5" fill="#7d7979">EMI</text><text x="636" y="342" font-size="12.5" fill="#201e1d" text-anchor="end">₹8,750</text>
+<line x1="444" y1="352" x2="636" y2="352" stroke="#f8f4f4"></line><text x="444" y="372" font-size="11.5" fill="#7d7979">First due</text><text x="636" y="372" font-size="12.5" fill="#201e1d" text-anchor="end">12 Sep</text>
+<line x1="444" y1="382" x2="636" y2="382" stroke="#f8f4f4"></line><rect x="444" y="392" width="192" height="40" rx="4" fill="#d6006c"></rect><text x="540" y="417" font-size="13" fill="#f3f2f2" text-anchor="middle">Accept and continue</text></svg>

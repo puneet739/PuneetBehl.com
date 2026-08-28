@@ -1,0 +1,43 @@
+<footer style="border-top:4px solid var(--color-text);padding:32px 0 56px;margin-top:24px">
+  <div class="g-foot" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
+    <div>
+      <div style="font:600 20px var(--font-heading);margin-bottom:8px">PUNEET BEHL</div>
+      <p style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-700);margin:0 0 12px">{{ site.footer_blurb }}</p>
+      <div style="display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--color-accent-700)"><span style="width:7px;height:7px;border-radius:50%;background:var(--color-accent-2)"></span>{{ site.availability_long }}</div>
+    </div>
+    <div>
+      <div style="font:600 11px var(--font-heading);letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:12px">Site</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px">
+        <a href="/work">Work</a><a href="/agentic">Agentic AI</a><a href="/services">Services</a><a href="/about">About</a><a href="/interviews">Mock interviews</a><a href="/writing">Writing</a>
+      </div>
+    </div>
+    <div>
+      <div style="font:600 11px var(--font-heading);letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:12px">Elsewhere</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px">
+        <a href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="{{ site.github }}" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:{{ site.email }}">Email</a>
+        <a href="tel:{{ site.phone | replace(' ', '') }}">{{ site.phone }}</a>
+      </div>
+    </div>
+    <div>
+      <div style="font:600 11px var(--font-heading);letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:12px">Field notes</div>
+      {% if request.query_params.get('subscribed') == '1' %}
+      <p style="font-size:13.5px;color:var(--color-accent-700);margin:0">Subscribed — one note a month, no more.</p>
+      {% else %}
+      <form method="post" action="/subscribe" style="display:flex;flex-direction:column;gap:8px">
+        <p style="font-size:13px;color:var(--color-neutral-700);margin:0">One note a month on agentic architecture and platform work.</p>
+        <input class="input" type="email" name="email" required placeholder="you@company.com">
+        <input type="hidden" name="from" value="{{ request.url.path }}">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp">
+        <input type="hidden" name="ts" value="{{ form_ts }}">
+        <button type="submit" class="btn btn-secondary" style="font-size:13.5px">Subscribe</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--color-divider);margin-top:32px;padding-top:16px;font-size:12px;color:var(--color-neutral-600)">
+    <span>© 2026 Puneet Behl. All rights reserved.</span>
+    <span>{{ site.credentials }}</span>
+  </div>
+</footer>
