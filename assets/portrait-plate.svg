@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500" font-family="Georgia,'Times New Roman',serif">
+<defs><pattern id="d" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.1" fill="#201e1d" opacity="0.14"></circle></pattern></defs>
+<rect width="400" height="500" fill="#f3f2f2"></rect><rect width="400" height="500" fill="url(#d)"></rect>
+<g font-size="210" font-weight="700" text-anchor="middle" style="mix-blend-mode:multiply">
+<text x="196" y="300" fill="#0088b0">PB</text><text x="203" y="304" fill="#d6006c">PB</text><text x="199" y="296" fill="#edbb00">PB</text></g>
+<g stroke="#201e1d" stroke-width="1" fill="none">
+<path d="M28 28 h22 M28 28 v22 M372 28 h-22 M372 28 v22 M28 472 h22 M28 472 v-22 M372 472 h-22 M372 472 v-22"></path>
+<circle cx="200" cy="60" r="9"></circle><path d="M200 44 v32 M184 60 h32"></path></g>
+<text x="200" y="368" font-size="15" font-weight="600" fill="#201e1d" text-anchor="middle" letter-spacing="2">PUNEET BEHL</text>
+<text x="200" y="390" font-size="11" fill="#605d5d" text-anchor="middle">TECHNICAL ARCHITECT · BENGALURU</text>
+<text x="200" y="436" font-size="10.5" fill="#7d7979" text-anchor="middle">C · M · Y plates, out of register</text></svg>

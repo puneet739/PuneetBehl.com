@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/broadsheet-20458c33-7e5f-417c-af2f-3e6f2feef7e1/styles.css">
+<script src="_ds/broadsheet-20458c33-7e5f-417c-af2f-3e6f2feef7e1/_ds_bundle.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f0eee9;font-family:system-ui,sans-serif}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#0088b0;color:#fff}
+.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+a{color:#0088b0}a:hover{color:#00688a}
+.wf{font-family:'Architects Daughter',cursive;color:#26241f}
+.chrome{display:flex;align-items:center;gap:6px;padding:7px 10px;border-bottom:1.5px solid #26241f;background:#f7f6f3}
+.dot{width:7px;height:7px;border-radius:50%;border:1.5px solid #8d8a83}
+.url{flex:1;font:10px 'Architects Daughter',cursive;color:#8d8a83;border:1.5px dashed #cfccc4;border-radius:20px;padding:2px 8px}
+.pad{padding:18px}
+.lbl{font:700 8.5px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:#a19d94;text-transform:uppercase;margin:0 0 7px}
+.box{border:1.5px solid #26241f;border-radius:3px}
+.soft{border:1.5px solid #c9c5bc;border-radius:3px}
+.bar{height:9px;border-radius:5px;background:#ddd9d1}
+.bar.k{background:#c6c1b7}
+.hd{font-family:'Caveat',cursive;font-weight:700;line-height:1.05;color:#26241f}
+.ph{border:1.5px solid #c9c5bc;border-radius:3px;background:
+ linear-gradient(to top right,transparent calc(50% - .7px),#dcd8d0 50%,transparent calc(50% + .7px)),
+ linear-gradient(to bottom right,transparent calc(50% - .7px),#dcd8d0 50%,transparent calc(50% + .7px)),#faf9f7;
+ display:flex;align-items:center;justify-content:center;font:9px ui-monospace,Menlo,monospace;color:#a19d94}
+.btn{border:1.5px solid #26241f;border-radius:20px;padding:5px 12px;font:12px 'Architects Daughter',cursive;display:inline-block}
+.btn.f{background:#0088b0;border-color:#0088b0;color:#fff}
+.pill{border:1.5px solid #c9c5bc;border-radius:20px;padding:2px 8px;font:10px 'Architects Daughter',cursive;color:#6f6b64}
+.row{display:flex;gap:10px}
+.note{font:11px 'Caveat',cursive;color:#0088b0}
+.mag{color:#d6006c}
+.sm{display:flex;flex-wrap:wrap;gap:5px;align-items:center;padding:9px 12px;border-top:1.5px dashed #ddd9d1;background:#faf9f7}
+.smc{font:9.5px ui-monospace,Menlo,monospace;color:#6f6b64;border:1.5px solid #cfccc4;border-radius:3px;padding:2px 6px;background:#fff}
+.smc.h{border-color:#0088b0;color:#0088b0}
+</style></helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Home page directions — multi-page, proof-heavy, "book a call" as the one CTA</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Proof ledger — numbers first, work as an index</div>
+<div class="dv-card wf" style="width:500px">
+<div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">puneetbehl.com</span></div>
+<div class="pad" style="display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div class="hd" style="font-size:17px">Puneet Behl</div>
+    <div class="row" style="gap:14px;font-size:11px;color:#6f6b64"><span>Work</span><span>Agentic</span><span>Services</span><span>About</span><span class="btn f" style="padding:3px 10px;font-size:11px">Book a call</span></div>
+  </div>
+  <div>
+    <div class="hd" style="font-size:34px;max-width:400px">16 years of systems that stay up.</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px;max-width:340px">
+      <div class="bar" style="width:100%"></div><div class="bar" style="width:88%"></div>
+    </div>
+    <div class="row" style="margin-top:14px;align-items:center"><span class="btn f">Book a discovery call</span><span class="pill">● Available Oct 2026</span></div>
+  </div>
+  <div>
+    <p class="lbl">Metric strip — pulled from CV</p>
+    <div class="row" style="gap:0">
+      <div class="soft" style="flex:1;padding:9px;border-radius:3px 0 0 3px"><div class="hd" style="font-size:19px">50M+</div><div style="font-size:9.5px;color:#8d8a83">req / day</div></div>
+      <div class="soft" style="flex:1;padding:9px;border-left:none"><div class="hd" style="font-size:19px">99.99%</div><div style="font-size:9.5px;color:#8d8a83">uptime</div></div>
+      <div class="soft" style="flex:1;padding:9px;border-left:none"><div class="hd" style="font-size:19px">60%</div><div style="font-size:9.5px;color:#8d8a83">cycle time cut</div></div>
+      <div class="soft" style="flex:1;padding:9px;border-left:none;border-radius:0 3px 3px 0"><div class="hd" style="font-size:19px">35</div><div style="font-size:9.5px;color:#8d8a83">engineers led</div></div>
+    </div>
+  </div>
+  <div>
+    <p class="lbl">Selected work — index table, 8 rows</p>
+    <div class="soft">
+      <div style="display:flex;gap:10px;padding:6px 9px;border-bottom:1.5px solid #e6e2da;font:9px ui-monospace,Menlo,monospace;color:#a19d94"><span style="flex:2">PROJECT</span><span style="flex:1.6">TYPE</span><span style="flex:1.4">STACK</span><span style="width:52px">YEAR</span></div>
+      <div style="display:flex;gap:10px;padding:8px 9px;border-bottom:1px solid #f0ece5;align-items:center"><span style="flex:2;font-size:12px">loaderhouse.com</span><span style="flex:1.6" class="bar" ></span><span style="flex:1.4" class="bar"></span><span style="width:52px" class="bar"></span></div>
+      <div style="display:flex;gap:10px;padding:8px 9px;border-bottom:1px solid #f0ece5;align-items:center"><span style="flex:2;font-size:12px">[ app name ]</span><span style="flex:1.6" class="bar"></span><span style="flex:1.4" class="bar"></span><span style="width:52px" class="bar"></span></div>
+      <div style="display:flex;gap:10px;padding:8px 9px;border-bottom:1px solid #f0ece5;align-items:center"><span style="flex:2;font-size:12px">[ project ]</span><span style="flex:1.6" class="bar"></span><span style="flex:1.4" class="bar"></span><span style="width:52px" class="bar"></span></div>
+      <div style="display:flex;gap:10px;padding:8px 9px;align-items:center;color:#a19d94;font-size:11px"><span>+ 5 more →</span></div>
+    </div>
+    <div class="note" style="margin-top:6px">Row click → case study page. No thumbnails on home; proof reads as a ledger.</div>
+  </div>
+  <div class="row">
+    <div style="flex:1"><p class="lbl">Agentic AI</p><div class="soft" style="padding:11px;height:78px"><div class="hd" style="font-size:14px">Your agentic journey</div><div class="bar" style="width:80%;margin-top:8px"></div><div class="bar" style="width:60%;margin-top:5px"></div></div></div>
+    <div style="flex:1"><p class="lbl">Certifications</p><div class="row" style="gap:7px"><div class="ph" style="flex:1;height:78px">AWS SAA<br>badge</div><div class="ph" style="flex:1;height:78px">CKAD<br>badge</div></div></div>
+  </div>
+  <div>
+    <p class="lbl">Contact — inline, end of page</p>
+    <div class="soft" style="padding:12px;display:flex;gap:10px;align-items:center"><span class="bar" style="flex:1"></span><span class="btn f" style="font-size:11px;padding:4px 10px">Send</span></div>
+  </div>
+</div>
+<div class="sm"><span class="smc h">Home</span><span class="smc">/work</span><span class="smc">/work/:slug ×8</span><span class="smc">/agentic</span><span class="smc">/services</span><span class="smc">/about</span><span class="smc">/writing</span><span class="smc">/contact</span></div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Agentic offer up front — sticky left rail, work as big cards</div>
+<div class="dv-card wf" style="width:520px">
+<div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">puneetbehl.com</span></div>
+<div style="display:flex">
+  <div style="width:118px;border-right:1.5px solid #e6e2da;padding:16px 12px;display:flex;flex-direction:column;gap:9px;background:#faf9f7">
+    <div class="hd" style="font-size:14px">P. Behl</div>
+    <div style="font-size:9.5px;color:#8d8a83;line-height:1.4">Technical architect · freelance</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;font-size:11px;color:#6f6b64">
+      <span style="color:#0088b0">Agentic</span><span>Work</span><span>Apps</span><span>Experience</span><span>Services</span><span>Writing</span><span>Contact</span>
+    </div>
+    <div class="pill" style="margin-top:10px;text-align:center">Open to work</div>
+    <div class="note" style="margin-top:auto;padding-top:14px">rail is sticky<br>+ collapses on mobile</div>
+  </div>
+  <div class="pad" style="flex:1;display:flex;flex-direction:column;gap:20px">
+    <div>
+      <p class="lbl">Hero — the offer, not the résumé</p>
+      <div class="hd" style="font-size:27px;max-width:300px">I ship agentic products to production.</div>
+      <div class="bar" style="width:90%;margin-top:10px"></div><div class="bar" style="width:70%;margin-top:5px"></div>
+      <div class="row" style="margin-top:12px"><span class="btn f">Book a call</span><span class="btn">See the work</span></div>
+    </div>
+    <div>
+      <p class="lbl">What I do — 3 offer blocks</p>
+      <div class="row">
+        <div class="soft" style="flex:1;padding:9px;height:70px"><div style="font-size:11px">Agent design</div><div class="bar" style="width:85%;margin-top:7px;height:7px"></div><div class="bar" style="width:65%;margin-top:4px;height:7px"></div></div>
+        <div class="soft" style="flex:1;padding:9px;height:70px"><div style="font-size:11px">Platform / cloud</div><div class="bar" style="width:85%;margin-top:7px;height:7px"></div><div class="bar" style="width:55%;margin-top:4px;height:7px"></div></div>
+        <div class="soft" style="flex:1;padding:9px;height:70px"><div style="font-size:11px">Delivery lead</div><div class="bar" style="width:85%;margin-top:7px;height:7px"></div><div class="bar" style="width:70%;margin-top:4px;height:7px"></div></div>
+      </div>
+    </div>
+    <div>
+      <p class="lbl">Selected work — 2-up cards w/ screenshot</p>
+      <div class="row">
+        <div style="flex:1"><div class="ph" style="height:92px">screenshot<br>loaderhouse.com</div><div style="font-size:12px;margin-top:6px">loaderhouse.com</div><div class="bar" style="width:80%;margin-top:5px;height:7px"></div></div>
+        <div style="flex:1"><div class="ph" style="height:92px">app screens</div><div style="font-size:12px;margin-top:6px">[ app name ]</div><div class="bar" style="width:70%;margin-top:5px;height:7px"></div></div>
+      </div>
+      <div class="row" style="margin-top:10px"><span class="pill">6 more on /work</span></div>
+    </div>
+    <div class="row">
+      <div style="flex:1.2"><p class="lbl">Proof bar</p><div class="soft" style="padding:9px;display:flex;gap:9px;font-size:10px;color:#6f6b64"><span>50M+/day</span><span>99.99%</span><span>16 yrs</span></div></div>
+      <div style="flex:1"><p class="lbl">Certs</p><div class="row" style="gap:6px"><div class="ph" style="flex:1;height:34px">AWS</div><div class="ph" style="flex:1;height:34px">CKAD</div></div></div>
+    </div>
+    <div class="soft" style="padding:12px;display:flex;justify-content:space-between;align-items:center;background:#faf9f7"><div><div style="font-size:12px">Book 30 min</div><div class="bar" style="width:110px;margin-top:6px;height:7px"></div></div><span class="btn f">Calendar</span></div>
+  </div>
+</div>
+<div class="sm"><span class="smc h">Home</span><span class="smc">/agentic</span><span class="smc">/work</span><span class="smc">/apps</span><span class="smc">/experience</span><span class="smc">/services</span><span class="smc">/writing</span><span class="smc">/contact</span></div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Broadsheet front page — airy, editorial, low density</div>
+<div class="dv-card wf" style="width:520px">
+<div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">puneetbehl.com</span></div>
+<div class="pad" style="padding:24px;display:flex;flex-direction:column;gap:26px">
+  <div>
+    <div style="border-top:4px solid #26241f;border-bottom:1.5px solid #26241f;padding:10px 0;display:flex;justify-content:space-between;align-items:baseline">
+      <div class="hd" style="font-size:26px;letter-spacing:.01em">PUNEET BEHL</div>
+      <div style="font-size:9.5px;color:#8d8a83">Bengaluru · Est. 2010 · No. 01</div>
+    </div>
+    <div style="display:flex;gap:14px;padding:6px 0;border-bottom:1.5px solid #26241f;font-size:10.5px;color:#6f6b64"><span>Work</span><span>Agentic AI</span><span>Services</span><span>Notes</span><span>Contact</span></div>
+  </div>
+  <div style="display:flex;gap:22px">
+    <div style="flex:1.5">
+      <div class="hd" style="font-size:30px">Architect for hire: distributed systems, cloud, agents.</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:14px"><div class="bar"></div><div class="bar" style="width:96%"></div><div class="bar" style="width:88%"></div><div class="bar" style="width:40%"></div></div>
+      <div class="row" style="margin-top:16px"><span class="btn f">Book a call</span></div>
+    </div>
+    <div style="flex:1">
+      <div class="ph" style="height:150px">portrait —<br>halftone screen</div>
+      <div style="font-size:9.5px;color:#a19d94;margin-top:6px">16 yrs · healthcare &amp; BFSI</div>
+    </div>
+  </div>
+  <div>
+    <p class="lbl">Index of work — headline list, no images</p>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;gap:12px;align-items:baseline"><span style="font:9px ui-monospace,Menlo,monospace;color:#a19d94">01</span><div style="flex:1"><div class="hd" style="font-size:16px">loaderhouse.com</div><div class="bar" style="width:75%;margin-top:5px;height:7px"></div></div></div>
+      <div style="display:flex;gap:12px;align-items:baseline"><span style="font:9px ui-monospace,Menlo,monospace;color:#a19d94">02</span><div style="flex:1"><div class="hd" style="font-size:16px">[ app name ]</div><div class="bar" style="width:66%;margin-top:5px;height:7px"></div></div></div>
+      <div style="display:flex;gap:12px;align-items:baseline"><span style="font:9px ui-monospace,Menlo,monospace;color:#a19d94">03</span><div style="flex:1"><div class="hd" style="font-size:16px">[ project ]</div><div class="bar" style="width:70%;margin-top:5px;height:7px"></div></div></div>
+      <div style="font-size:11px;color:#a19d94">…8 total → /work</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:22px">
+    <div style="flex:1"><p class="lbl">Column — agentic</p><div class="bar" style="width:100%"></div><div class="bar" style="width:92%;margin-top:5px"></div><div class="bar" style="width:60%;margin-top:5px"></div></div>
+    <div style="flex:1"><p class="lbl">Column — credentials</p><div class="row" style="gap:7px"><div class="ph" style="flex:1;height:44px">AWS SAA</div><div class="ph" style="flex:1;height:44px">CKAD</div><div class="ph" style="flex:1;height:44px">CSM</div></div></div>
+    <div style="flex:1"><p class="lbl">Column — notes</p><div class="bar" style="width:90%"></div><div class="bar" style="width:80%;margin-top:5px"></div><div class="bar" style="width:50%;margin-top:5px"></div></div>
+  </div>
+  <div style="border-top:1.5px solid #26241f;padding-top:14px;display:flex;justify-content:space-between;align-items:center">
+    <div class="hd" style="font-size:17px">Have a system to build?</div><span class="btn f">Book a call</span>
+  </div>
+  <div class="note">Whitespace does the work — no cards, no dividers except the masthead rails.</div>
+</div>
+<div class="sm"><span class="smc h">Home</span><span class="smc">/work</span><span class="smc">/work/:slug</span><span class="smc">/agentic</span><span class="smc">/services</span><span class="smc">/notes</span><span class="smc">/contact</span></div>
+</div>
+</div>
+
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Architecture-diagram hero — work in a filtered grid</div>
+<div class="dv-card wf" style="width:500px">
+<div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">puneetbehl.com</span></div>
+<div class="pad" style="display:flex;flex-direction:column;gap:20px">
+  <div style="display:flex;justify-content:space-between;align-items:center"><div class="hd" style="font-size:16px">Puneet Behl</div><div class="row" style="gap:12px;font-size:11px;color:#6f6b64"><span>Work</span><span>Agentic</span><span>Stack</span><span>Contact</span><span class="btn f" style="padding:3px 10px;font-size:11px">Book</span></div></div>
+  <div>
+    <p class="lbl">Hero — half copy, half system sketch</p>
+    <div style="display:flex;gap:16px;align-items:center">
+      <div style="flex:1"><div class="hd" style="font-size:24px">I design the system, then I ship it.</div><div class="bar" style="width:90%;margin-top:9px"></div><div class="bar" style="width:65%;margin-top:5px"></div><div class="row" style="margin-top:12px"><span class="btn f">Book a call</span></div></div>
+      <div class="soft" style="flex:1;padding:10px;background:#faf9f7">
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+          <div class="box" style="width:100%;height:16px;display:flex;align-items:center;justify-content:center;font-size:8.5px">clients / agents</div>
+          <div style="font-size:9px;color:#a19d94">↓</div>
+          <div class="row" style="gap:5px;width:100%"><div class="box" style="flex:1;height:16px"></div><div class="box" style="flex:1;height:16px"></div><div class="box" style="flex:1;height:16px"></div></div>
+          <div style="font-size:9px;color:#a19d94">↓</div>
+          <div class="box" style="width:100%;height:16px;border-color:#0088b0"></div>
+          <div style="font-size:8.5px;color:#a19d94">EKS · Kafka · FHIR</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="lbl">Work — filter tabs then grid of 8</p>
+    <div class="row" style="gap:6px;margin-bottom:10px"><span class="pill" style="border-color:#0088b0;color:#0088b0">All 8</span><span class="pill">Websites</span><span class="pill">Apps</span><span class="pill">Agentic</span><span class="pill">Platform</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px">
+      <div><div class="ph" style="height:56px">shot</div><div style="font-size:10.5px;margin-top:5px">loaderhouse</div></div>
+      <div><div class="ph" style="height:56px">shot</div><div style="font-size:10.5px;margin-top:5px">[ app ]</div></div>
+      <div><div class="ph" style="height:56px">shot</div><div style="font-size:10.5px;margin-top:5px">[ app ]</div></div>
+      <div><div class="ph" style="height:56px">shot</div><div style="font-size:10.5px;margin-top:5px">[ project ]</div></div>
+      <div><div class="ph" style="height:56px">shot</div><div style="font-size:10.5px;margin-top:5px">[ project ]</div></div>
+      <div><div class="ph" style="height:56px">shot</div><div style="font-size:10.5px;margin-top:5px">[ project ]</div></div>
+    </div>
+  </div>
+  <div>
+    <p class="lbl">Stack + certs as one plate</p>
+    <div class="soft" style="padding:11px;display:flex;gap:12px;align-items:center">
+      <div class="ph" style="width:52px;height:52px">AWS</div><div class="ph" style="width:52px;height:52px">CKAD</div>
+      <div style="flex:1;display:flex;flex-wrap:wrap;gap:5px"><span class="pill">Java</span><span class="pill">Spring Boot</span><span class="pill">EKS</span><span class="pill">Kafka</span><span class="pill">Terraform</span><span class="pill">FHIR</span><span class="pill">Datadog</span></div>
+    </div>
+  </div>
+  <div class="row">
+    <div style="flex:1"><p class="lbl">Testimonial</p><div class="soft" style="padding:10px;height:56px"><div class="bar" style="width:90%;height:7px"></div><div class="bar" style="width:70%;height:7px;margin-top:5px"></div><div style="font-size:9.5px;color:#a19d94;margin-top:7px">— name, role</div></div></div>
+    <div style="flex:1"><p class="lbl">Timeline teaser</p><div class="soft" style="padding:10px;height:56px;display:flex;align-items:center;gap:6px"><span class="bar" style="flex:1;height:7px"></span><span class="bar" style="flex:1;height:7px"></span><span class="bar" style="flex:1;height:7px"></span></div></div>
+  </div>
+  <div class="soft" style="padding:12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px">Contact form + newsletter</span><span class="btn f">Book a call</span></div>
+</div>
+<div class="sm"><span class="smc h">Home</span><span class="smc">/work?filter=</span><span class="smc">/work/:slug ×8</span><span class="smc">/agentic</span><span class="smc">/stack</span><span class="smc">/about</span><span class="smc">/contact</span></div>
+</div>
+</div>
+
+<div class="dv-opt" id="1e">
+<div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>Spec sheet — max density, one column, everything scannable</div>
+<div class="dv-card wf" style="width:400px">
+<div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">puneetbehl.com</span></div>
+<div class="pad" style="padding:15px;display:flex;flex-direction:column;gap:13px">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #26241f;padding-bottom:7px">
+    <div><div class="hd" style="font-size:15px">PUNEET BEHL</div><div style="font-size:9.5px;color:#8d8a83">Technical architect · 16 yrs · freelance</div></div>
+    <span class="btn f" style="font-size:10.5px;padding:3px 9px">Book</span>
+  </div>
+  <div style="display:flex;gap:8px;font-size:10px;color:#6f6b64;flex-wrap:wrap"><span class="pill">↳ Work</span><span class="pill">↳ Agentic</span><span class="pill">↳ Services</span><span class="pill">↳ CV</span><span class="pill">↳ Writing</span></div>
+  <div><div class="bar" style="width:100%"></div><div class="bar" style="width:100%;margin-top:4px"></div><div class="bar" style="width:78%;margin-top:4px"></div></div>
+  <div>
+    <p class="lbl" style="margin-bottom:5px">Impact — key : value rows</p>
+    <div style="display:flex;flex-direction:column">
+      <div style="display:flex;gap:8px;padding:4px 0;border-bottom:1px solid #f0ece5;font-size:11px"><span style="width:120px;color:#8d8a83">Throughput</span><span>50M+ requests / day</span></div>
+      <div style="display:flex;gap:8px;padding:4px 0;border-bottom:1px solid #f0ece5;font-size:11px"><span style="width:120px;color:#8d8a83">Uptime</span><span>99.99%</span></div>
+      <div style="display:flex;gap:8px;padding:4px 0;border-bottom:1px solid #f0ece5;font-size:11px"><span style="width:120px;color:#8d8a83">Cycle time</span><span>−60% across 7 teams</span></div>
+      <div style="display:flex;gap:8px;padding:4px 0;border-bottom:1px solid #f0ece5;font-size:11px"><span style="width:120px;color:#8d8a83">Certifications</span><span>AWS SAA · CKAD · CSM</span></div>
+    </div>
+  </div>
+  <div>
+    <p class="lbl" style="margin-bottom:5px">Work — 8 compact rows, thumb + one line</p>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;gap:8px;align-items:center"><div class="ph" style="width:38px;height:26px"></div><div style="flex:1"><div style="font-size:11px">loaderhouse.com</div><div class="bar" style="width:70%;height:6px;margin-top:3px"></div></div><span style="font-size:9.5px;color:#a19d94">→</span></div>
+      <div style="display:flex;gap:8px;align-items:center"><div class="ph" style="width:38px;height:26px"></div><div style="flex:1"><div style="font-size:11px">[ app name ]</div><div class="bar" style="width:60%;height:6px;margin-top:3px"></div></div><span style="font-size:9.5px;color:#a19d94">→</span></div>
+      <div style="display:flex;gap:8px;align-items:center"><div class="ph" style="width:38px;height:26px"></div><div style="flex:1"><div style="font-size:11px">[ app name ]</div><div class="bar" style="width:66%;height:6px;margin-top:3px"></div></div><span style="font-size:9.5px;color:#a19d94">→</span></div>
+      <div style="display:flex;gap:8px;align-items:center"><div class="ph" style="width:38px;height:26px"></div><div style="flex:1"><div style="font-size:11px">[ project ]</div><div class="bar" style="width:55%;height:6px;margin-top:3px"></div></div><span style="font-size:9.5px;color:#a19d94">→</span></div>
+      <div style="font-size:10px;color:#a19d94">+4 more</div>
+    </div>
+  </div>
+  <div>
+    <p class="lbl" style="margin-bottom:5px">Agentic services — 3 lines, priced</p>
+    <div style="display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0ece5;font-size:11px"><span>Agent architecture sprint</span><span class="mag">2 wks</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0ece5;font-size:11px"><span>Build &amp; ship</span><span class="mag">retainer</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:11px"><span>Fractional architect</span><span class="mag">monthly</span></div>
+    </div>
+  </div>
+  <div>
+    <p class="lbl" style="margin-bottom:5px">Experience — dense timeline</p>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="display:flex;gap:8px;font-size:10.5px"><span style="width:74px;color:#8d8a83">2021–2026</span><span>AthenaHealth — Architect / EM</span></div>
+      <div style="display:flex;gap:8px;font-size:10.5px"><span style="width:74px;color:#8d8a83">2018–2021</span><span>AthenaHealth — LMTS</span></div>
+      <div style="display:flex;gap:8px;font-size:10.5px"><span style="width:74px;color:#8d8a83">2016–2018</span><span>Hcentive — Sr Engineer</span></div>
+      <div style="font-size:10px;color:#a19d94">+3 earlier</div>
+    </div>
+  </div>
+  <div class="soft" style="padding:10px;display:flex;flex-direction:column;gap:7px">
+    <div style="font-size:11px">Contact · email · LinkedIn · GitHub</div>
+    <div style="display:flex;gap:7px"><span class="bar" style="flex:1"></span><span class="btn f" style="font-size:10.5px;padding:3px 9px">Send</span></div>
+  </div>
+  <div class="note">Everything above the fold is verifiable. Sub-pages exist but the home page already answers "can he do it?"</div>
+</div>
+<div class="sm"><span class="smc h">Home</span><span class="smc">/work</span><span class="smc">/agentic</span><span class="smc">/services</span><span class="smc">/cv</span><span class="smc">/writing</span><span class="smc">/contact</span></div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "build out <a class="dv-oid" href="#1a">1a</a>'s work + case-study pages" · "<a class="dv-oid" href="#1b">1b</a> hero with <a class="dv-oid" href="#1c">1c</a>'s masthead" · "more directions, denser than <a class="dv-oid" href="#1d">1d</a>"</p>
+</section>
+
+</x-dc>
+</body>
+</html>

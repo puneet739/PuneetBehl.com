@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" font-family="Georgia,'Times New Roman',serif">
+<defs><pattern id="d" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.05" fill="#201e1d" opacity="0.16"></circle></pattern></defs>
+<rect width="800" height="500" fill="#f3f2f2"></rect><rect x="40" y="40" width="720" height="34" fill="#eae9e9" stroke="#201e1d" stroke-width="1"></rect>
+<circle cx="58" cy="57" r="4.5" fill="none" stroke="#7d7979"></circle><circle cx="74" cy="57" r="4.5" fill="none" stroke="#7d7979"></circle><circle cx="90" cy="57" r="4.5" fill="none" stroke="#7d7979"></circle>
+<rect x="108" y="48" width="630" height="18" rx="9" fill="#f8f4f4" stroke="#d7d3d3"></rect><text x="120" y="61" font-size="11" fill="#605d5d">app.relayd.io/runs/4a91f2</text><rect x="40" y="74" width="720" height="386" fill="#ffffff" stroke="#201e1d" stroke-width="1"></rect>
+<text x="66" y="110" font-size="15" font-weight="600" fill="#201e1d">Run 4a91f2 · invoice reconciliation</text>
+<text x="66" y="128" font-size="11" fill="#7d7979">Resumed after deploy · 6 of 8 steps · waiting on approval</text><rect x="92" y="186" width="112" height="44" fill="#f8f4f4" stroke="#d7d3d3"></rect>
+<text x="148" y="213" font-size="12.5" fill="#201e1d" text-anchor="middle">Intake</text><rect x="232" y="186" width="112" height="44" fill="#f8f4f4" stroke="#d7d3d3"></rect>
+<text x="288" y="213" font-size="12.5" fill="#201e1d" text-anchor="middle">Extract</text><rect x="372" y="156" width="112" height="44" fill="#f8f4f4" stroke="#d7d3d3"></rect>
+<text x="428" y="183" font-size="12.5" fill="#201e1d" text-anchor="middle">Match</text><rect x="372" y="228" width="112" height="44" fill="#f8f4f4" stroke="#d7d3d3"></rect>
+<text x="428" y="255" font-size="12.5" fill="#201e1d" text-anchor="middle">Flag</text><rect x="512" y="186" width="112" height="44" fill="#e9f8ff" stroke="#0088b0"></rect>
+<text x="568" y="213" font-size="12.5" fill="#201e1d" text-anchor="middle">Approve</text><rect x="652" y="186" width="112" height="44" fill="#f8f4f4" stroke="#d7d3d3"></rect>
+<text x="708" y="213" font-size="12.5" fill="#201e1d" text-anchor="middle">Post</text><g stroke="#0088b0" stroke-width="1.4" fill="none">
+<path d="M204 212 H232"></path><path d="M344 212 C 360 212 360 182 372 182"></path><path d="M344 212 C 360 212 360 254 372 254"></path>
+<path d="M484 182 C 500 182 500 212 512 212"></path><path d="M484 254 C 500 254 500 212 512 212"></path><path d="M624 212 H652"></path></g>
+<circle cx="218" cy="212" r="3.5" fill="#0088b0"></circle><circle cx="638" cy="212" r="3.5" fill="#d6006c"></circle>
+<text x="66" y="312" font-size="9.5" fill="#7d7979" letter-spacing="1">STEP TIMELINE</text><rect x="66" y="326" width="120" height="16" fill="#d7d3d3"></rect><text x="66" y="360" font-size="10" fill="#605d5d">queued</text><rect x="190" y="326" width="160" height="16" fill="#0088b0"></rect><text x="190" y="360" font-size="10" fill="#605d5d">extract</text><rect x="354" y="326" width="90" height="16" fill="#0088b0"></rect><text x="354" y="360" font-size="10" fill="#605d5d">match</text><rect x="448" y="326" width="180" height="16" fill="#d6006c"></rect><text x="448" y="360" font-size="10" fill="#605d5d">await human</text><rect x="632" y="326" width="102" height="16" fill="#eae7e7"></rect><text x="632" y="360" font-size="10" fill="#605d5d">post</text><line x1="66" y1="392" x2="734" y2="392" stroke="#eae7e7"></line>
+<g font-size="11" fill="#605d5d"><text x="66" y="416">220k runs / month</text><text x="266" y="416">99.95% control plane</text><text x="486" y="416">0 runs lost to deploys</text></g>
+<text x="66" y="440" font-size="10.5" fill="#7d7979">Durable state in Postgres · outbox → Kafka · trace per run</text></svg>

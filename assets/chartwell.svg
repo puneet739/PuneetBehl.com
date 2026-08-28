@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" font-family="Georgia,'Times New Roman',serif">
+<defs><pattern id="d" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.05" fill="#201e1d" opacity="0.16"></circle></pattern></defs>
+<rect width="800" height="500" fill="#f3f2f2"></rect><rect x="40" y="40" width="720" height="34" fill="#eae9e9" stroke="#201e1d" stroke-width="1"></rect>
+<circle cx="58" cy="57" r="4.5" fill="none" stroke="#7d7979"></circle><circle cx="74" cy="57" r="4.5" fill="none" stroke="#7d7979"></circle><circle cx="90" cy="57" r="4.5" fill="none" stroke="#7d7979"></circle>
+<rect x="108" y="48" width="630" height="18" rx="9" fill="#f8f4f4" stroke="#d7d3d3"></rect><text x="120" y="61" font-size="11" fill="#605d5d">chart.athena.internal/summary/patient-8841</text><rect x="40" y="74" width="720" height="386" fill="#ffffff" stroke="#201e1d" stroke-width="1"></rect>
+<text x="66" y="112" font-size="17" font-weight="600" fill="#201e1d">Pre-visit summary</text>
+<text x="66" y="132" font-size="11" fill="#7d7979">Generated 08:12 · 14 sources · every line cited</text>
+<rect x="620" y="96" width="118" height="24" fill="#ffdee6"></rect><text x="679" y="112" font-size="11" fill="#790e3d" text-anchor="middle">Clinician review</text>
+<line x1="66" y1="148" x2="734" y2="148" stroke="#201e1d"></line><text x="66" y="178" font-size="9.5" fill="#7d7979" letter-spacing="1">ACTIVE PROBLEMS</text>
+<text x="66" y="200" font-size="13" fill="#201e1d">Type 2 diabetes (2019) · Hypertension (2021) · CKD stage 2</text>
+<rect x="66" y="210" width="121.4" height="18" fill="#e9f8ff"></rect>
+<text x="74" y="223" font-size="10" fill="#004961">FHIR Condition ×3</text><text x="66" y="244" font-size="9.5" fill="#7d7979" letter-spacing="1">SINCE LAST VISIT</text>
+<text x="66" y="266" font-size="13" fill="#201e1d">HbA1c 8.4 → 7.6 · new metformin dose 1000 mg</text>
+<rect x="66" y="276" width="202" height="18" fill="#e9f8ff"></rect>
+<text x="74" y="289" font-size="10" fill="#004961">Observation, MedicationRequest</text><text x="66" y="310" font-size="9.5" fill="#7d7979" letter-spacing="1">ALLERGIES</text>
+<text x="66" y="332" font-size="13" fill="#201e1d">Penicillin — rash, moderate. Deduplicated from 3 sources</text>
+<rect x="66" y="342" width="127.60000000000001" height="18" fill="#e9f8ff"></rect>
+<text x="74" y="355" font-size="10" fill="#004961">AllergyIntolerance</text><text x="66" y="376" font-size="9.5" fill="#7d7979" letter-spacing="1">OPEN ITEMS</text>
+<text x="66" y="398" font-size="13" fill="#201e1d">Retinal screening overdue 4 months</text>
+<rect x="66" y="408" width="59.4" height="18" fill="#e9f8ff"></rect>
+<text x="74" y="421" font-size="10" fill="#004961">CareGap</text><line x1="66" y1="440" x2="734" y2="440" stroke="#eae7e7"></line>
+<text x="66" y="456" font-size="10.5" fill="#7d7979">1.4M notes / month · 0.9¢ per summary · eval set 1,200 charts</text></svg>
