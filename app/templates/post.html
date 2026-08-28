@@ -1,2 +1,19 @@
 {% extends "base.html" %}
-{% block main %}<main style="padding:56px 0 96px"><h1 style="font-size:46px;margin:0 0 16px">{{ post.title }}</h1></main>{% endblock %}
+{% block title %}{{ post.title }} — Puneet Behl{% endblock %}
+{% block description %}{{ post.excerpt }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block main %}
+<main style="padding:48px 0 96px;max-width:44em">
+  <a href="/writing" style="font-size:13px">← Writing</a>
+  <p style="font-size:12.5px;color:var(--color-neutral-600);margin:26px 0 12px">{{ post.date_display }} · {{ post.read }}</p>
+  <h1 style="font-size:44px;margin:0 0 24px;line-height:1.08">{{ post.title }}</h1>
+  <p style="font-size:20px;line-height:1.6;color:var(--color-neutral-800);margin:0 0 32px;font-style:italic">{{ post.excerpt }}</p>
+  <div style="font-size:17px;line-height:1.75">
+    <div class="post-body">{{ post.body_html | safe }}</div>
+  </div>
+  <div style="border-top:1px solid var(--color-text);margin-top:40px;padding-top:20px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+    <p style="margin:0;font-size:15px;color:var(--color-neutral-700)">Working on something like this?</p>
+    <a href="/contact" class="btn btn-primary" style="font-size:14px">Book a call</a>
+  </div>
+</main>
+{% endblock %}
