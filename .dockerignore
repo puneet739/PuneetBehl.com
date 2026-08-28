@@ -1,0 +1,34 @@
+# VCS / tooling
+.git
+.gitignore
+.github
+.superpowers
+.pytest_cache
+.venv
+venv
+**/__pycache__
+**/*.pyc
+**/*.egg-info
+
+# Local config and secrets — config comes from the environment
+.env
+
+# Not part of the running site
+tests
+docs
+screenshots
+uploads
+_ds
+assets
+*.dc.html
+support.js
+
+# Docker plumbing itself
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# Docs: keep README.md, drop the rest
+*.md
+!README.md
