@@ -1,2 +1,49 @@
 {% extends "base.html" %}
-{% block main %}<main style="padding:56px 0 96px"><h1 style="font-size:46px;margin:0 0 16px">About</h1></main>{% endblock %}
+{% block title %}About — Puneet Behl{% endblock %}
+{% block description %}Principal-level technical architect in Bengaluru, sixteen years into building distributed, fault-tolerant systems for healthcare and financial services.{% endblock %}
+{% block main %}
+<main style="padding:56px 0 96px">
+  <div class="g-hero" style="display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start">
+    <div>
+      <h1 style="font-size:46px;margin:0 0 22px">About</h1>
+      <p style="font-size:18px;line-height:1.65;margin:0 0 16px">I am a principal-level technical architect based in Bengaluru, sixteen years into building distributed, fault-tolerant systems for healthcare and financial services. Java and Spring Boot are my working language; AWS and Kubernetes are where the systems live; event-driven architecture is how they scale.</p>
+      <p style="font-size:18px;line-height:1.65;margin:0 0 16px">At AthenaHealth I owned architecture for a platform serving over 50 million requests a day at 99.99% uptime, migrated production workloads from ECS to EKS by hand, and ran clinical data interoperability with Cerner, CommonWell and CareQuality over HL7 FHIR and SMART on FHIR — work that lifted provider adoption 23%.</p>
+      <p style="font-size:18px;line-height:1.65;margin:0 0 16px">I also managed the team. Five years of formal people leadership: grew the group from five to ten, closed twenty hires across ten drives, built three successful promotion cases, and lost one person in four years.</p>
+      <p style="font-size:18px;line-height:1.65;margin:0 0 32px">The AI work came out of impatience with our own delivery speed. I designed a spec-driven, AI-integrated development workflow, took it across seven teams and thirty-five engineers, and cut cycle time 60%. Then I built a clinical summarisation engine that cut record-review time 35%. Both are the reason I now spend most of my time on agentic systems.</p>
+      <h2 style="font-size:26px;margin:0 0 18px">Experience</h2>
+      <div style="display:flex;flex-direction:column">
+        {% for r in roles %}
+          <div class="g-tl" style="display:grid;grid-template-columns:150px 1fr;gap:24px;padding:18px 0;border-top:1px solid var(--color-divider)">
+            <div style="font-size:13px;color:var(--color-neutral-600)">{{ r.years }}</div>
+            <div>
+              <div style="font:600 18px/1.2 var(--font-heading)">{{ r.title }}</div>
+              <div style="font-size:13.5px;color:var(--color-neutral-700);margin:3px 0 8px">{{ r.company }}</div>
+              <p style="font-size:14.5px;line-height:1.6;color:var(--color-neutral-800);margin:0">{{ r.note }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <aside class="aside-top" style="padding-top:76px">
+      <div style="border-top:4px solid var(--color-text);padding-top:16px;margin-bottom:32px">
+        <h3 style="font-size:16px;margin:0 0 12px;letter-spacing:.08em;text-transform:uppercase">Stack</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          {% for s in skills %}<span class="tag tag-neutral">{{ s }}</span>{% endfor %}
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--color-text);padding-top:16px;margin-bottom:32px">
+        <h3 style="font-size:16px;margin:0 0 12px;letter-spacing:.08em;text-transform:uppercase">Certifications</h3>
+        <p style="font-size:14px;line-height:1.7;margin:0;color:var(--color-neutral-800)">AWS Certified Solutions Architect — Associate<br>Certified Kubernetes Application Developer (CKAD)<br>Certified ScrumMaster (CSM)</p>
+      </div>
+      <div style="border-top:1px solid var(--color-text);padding-top:16px;margin-bottom:32px">
+        <h3 style="font-size:16px;margin:0 0 12px;letter-spacing:.08em;text-transform:uppercase">Awards</h3>
+        <p style="font-size:14px;line-height:1.7;margin:0;color:var(--color-neutral-800)">AI Leader — AthenaHealth, 2026<br>Outstanding Performance in Platform — AthenaHealth, 2024<br>Best Tech Team — Hcentive, 2017<br>Exceptional Delivery — Utiba, 2012</p>
+      </div>
+      <div style="border-top:1px solid var(--color-text);padding-top:16px">
+        <h3 style="font-size:16px;margin:0 0 12px;letter-spacing:.08em;text-transform:uppercase">Speaking</h3>
+        <p style="font-size:14px;line-height:1.7;margin:0;color:var(--color-neutral-800)">Available for conference talks and internal engineering sessions on agentic architecture, EKS migrations and FHIR interoperability. <a href="/contact">Get in touch</a>.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+{% endblock %}
