@@ -9,7 +9,7 @@ from itsdangerous import URLSafeTimedSerializer
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from app.config import get_settings
-from app.content import get_content
+from app.content import featured_projects, get_content
 
 BASE_DIR = Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
@@ -64,7 +64,13 @@ def create_app() -> FastAPI:
 
     @app.get("/", response_class=HTMLResponse)
     async def home(request: Request):
-        return render(request, "home.html", nav_active="")
+        return render(
+            request,
+            "home.html",
+            nav_active="",
+            featured=featured_projects(),
+            stats=app.state.content.site.home_stats,
+        )
 
     return app
 

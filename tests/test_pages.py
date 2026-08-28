@@ -75,3 +75,52 @@ def test_favicon_served(client):
     r = client.get("/static/favicon.svg")
     assert r.status_code == 200
     assert "<svg" in r.text
+
+
+def test_home_content(client):
+    body = client.get("/").text
+    assert "I design distributed systems that stay up" in body
+    assert "50M+" in body
+    assert "Selected work" in body
+    # featured projects present with real links
+    assert 'href="/work/loaderhouse"' in body
+    assert 'href="/work/kubestat"' in body
+    assert "Ravi Menon" in body
+    assert 'href="/contact"' in body
+
+
+def test_home_stat_values_all_render(client):
+    # The four home stats come from site.yaml home_stats, rendered via a loop.
+    # If the loop broke or a value went missing, one of these would vanish.
+    body = client.get("/").text
+    for value in ("50M+", "99.99%", "60%", "35"):
+        assert value in body, f"missing home stat value {value!r}"
+    # Each stat numeral is echoed by the paper span plus three CMYK plate spans
+    # for the misregister effect — assert all four spans exist for one value.
+    assert body.count('>50M+<') >= 4, "cmyk-num needs paper + 3 plate spans per value"
+
+
+def test_home_featured_projects_in_yaml_order(client):
+    # featured_projects() returns projects[0], [2], [1], [4] from projects.yaml
+    # (loaderhouse, relayd, chartwell, kubestat). A wrong index would silently
+    # surface the wrong project, so pin every slug's link.
+    body = client.get("/").text
+    for slug in ("loaderhouse", "relayd", "chartwell", "kubestat"):
+        assert f'href="/work/{slug}"' in body, f"missing featured link for {slug}"
+    # northgate-rails is projects[3] and must NOT be featured on the home page
+    assert 'href="/work/northgate-rails"' not in body
+    # links appear in featured order
+    order = [
+        body.index('href="/work/loaderhouse"'),
+        body.index('href="/work/relayd"'),
+        body.index('href="/work/chartwell"'),
+        body.index('href="/work/kubestat"'),
+    ]
+    assert order == sorted(order), "featured project links out of expected order"
+
+
+def test_home_testimonial_from_site_yaml(client):
+    # The testimonial now comes from site.yaml, not hard-coded markup.
+    body = client.get("/").text
+    assert "Ravi Menon — VP Engineering, Northgate Financial" in body
+    assert "the payments core has not had a Sev-1" in body

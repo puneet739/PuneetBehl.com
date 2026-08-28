@@ -1,2 +1,84 @@
 {% extends "base.html" %}
-{% block main %}<main style="padding:64px 0"><h1>Home</h1></main>{% endblock %}
+{% block main %}
+<main style="padding:64px 0 0">
+  <section class="g-hero" style="display:grid;grid-template-columns:1.55fr 1fr;gap:56px;align-items:start">
+    <div>
+      <p style="font:600 11px/1 var(--font-heading);letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 20px">Freelance technical architect · 16 years</p>
+      <h1 style="font-size:clamp(32px,5.4vw,58px);line-height:1.04;margin:0 0 24px;max-width:15em;text-wrap:pretty">I design distributed systems that stay up — and ship the agentic products that run on them.</h1>
+      <p style="font-size:18px;line-height:1.6;max-width:34em;margin:0 0 14px">Sixteen years across healthcare and financial services, most recently as Technical Architect and Engineering Manager at AthenaHealth: a platform serving 50M+ requests a day at 99.99% uptime, an ECS-to-EKS migration run hands-on, and clinical interoperability with Cerner, CommonWell and CareQuality over HL7 FHIR.</p>
+      <p style="font-size:18px;line-height:1.6;max-width:34em;margin:0 0 28px">I now take that work on directly — architecture, agentic systems, and end-to-end delivery for teams that need the thing built, not just diagrammed.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+        <a href="/contact" class="btn btn-primary" style="font-size:15px;padding:11px 20px">Book a discovery call</a>
+        <a href="/work" class="btn btn-secondary" style="font-size:15px;padding:11px 20px">See the work</a>
+      </div>
+    </div>
+    <aside style="padding-top:8px">
+      <figure class="frame portrait" style="margin:0 0 10px;aspect-ratio:4/5;max-width:340px">
+        <img src="assets/portrait-plate.svg" alt="Puneet Behl — initials set as three misregistered process plates" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      </figure>
+      <figcaption style="margin:0 0 26px;max-width:340px">Plate portrait, C·M·Y out of register. Swap in a photograph any time.</figcaption>
+      <p style="font:600 11px/1 var(--font-heading);letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600);margin:0 0 16px">Credentials</p>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="border-top:1px solid var(--color-text);padding-top:10px"><div style="font:600 16px/1.2 var(--font-heading)">AWS Certified Solutions Architect</div><div style="font-size:12.5px;color:var(--color-neutral-700)">Associate · Amazon Web Services</div></div>
+        <div style="border-top:1px solid var(--color-text);padding-top:10px"><div style="font:600 16px/1.2 var(--font-heading)">Certified Kubernetes Application Developer</div><div style="font-size:12.5px;color:var(--color-neutral-700)">CKAD · Cloud Native Computing Foundation</div></div>
+        <div style="border-top:1px solid var(--color-text);padding-top:10px"><div style="font:600 16px/1.2 var(--font-heading)">Certified ScrumMaster</div><div style="font-size:12.5px;color:var(--color-neutral-700)">CSM · Scrum Alliance</div></div>
+      </div>
+      <p style="font-size:12px;color:var(--color-neutral-600);margin:18px 0 0">B.Tech Computer Science, ICFAI Tech Dehradun. AI Leader award, AthenaHealth 2026.</p>
+    </aside>
+  </section>
+
+  <section class="g-4" style="margin-top:88px;display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+    {% for s in stats %}
+    <div><div class="cmyk-num" style="font:600 clamp(34px,4.4vw,52px)/0.95 var(--font-heading)"><span class="paper">{{ s.value }}</span><span class="plate plate-c" aria-hidden="true">{{ s.value }}</span><span class="plate plate-m" aria-hidden="true">{{ s.value }}</span><span class="plate plate-y" aria-hidden="true">{{ s.value }}</span></div><p style="font-size:13.5px;color:var(--color-neutral-700);margin:8px 0 0">{{ s.label }}</p></div>
+    {% endfor %}
+  </section>
+
+  <section style="margin-top:96px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-text);padding-bottom:10px;margin-bottom:32px">
+      <h2 style="margin:0;font-size:30px">Selected work</h2>
+      <a href="/work" class="und" style="font-size:13.5px">All eight projects →</a>
+    </div>
+    <div class="g-2" style="display:grid;grid-template-columns:1fr 1fr;gap:40px 36px">
+      {% for p in featured %}
+        <a href="/work/{{ p.slug }}" class="lift" style="color:var(--color-text);display:block">
+          <div class="frame tilt" style="aspect-ratio:16/9">
+            <div class="art tilt art-{{ p.slug }}" role="img" aria-label="{{ p.name }} — {{ p.summary.split('—')[0].strip() }}"></div>
+            <div class="dot-screen" style="position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.3"></div>
+            <div style="position:absolute;left:0;top:12px;pointer-events:none;font:600 10.5px/1 var(--font-heading);letter-spacing:.14em;text-transform:uppercase;color:var(--color-text);background:var(--color-bg);padding:5px 10px">{{ p.type }}</div>
+          </div>
+          <div style="margin-top:14px"><div style="font:600 21px/1.15 var(--font-heading)">{{ p.name }}</div><div style="font-size:12px;color:var(--color-neutral-700);margin-top:2px">{{ p.domain }}</div></div>
+          <p style="font-size:14.5px;line-height:1.55;margin:10px 0 8px;color:var(--color-neutral-800)">{{ p.summary }}</p>
+          <div style="font-size:12.5px;color:var(--color-accent-700)">{{ p.headline }}</div>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="g-hero" style="margin-top:104px;display:grid;grid-template-columns:1fr 1.3fr;gap:56px;align-items:start">
+    <div>
+      <p style="font:600 11px/1 var(--font-heading);letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-2);margin:0 0 16px">Agentic AI</p>
+      <h2 style="font-size:36px;margin:0 0 18px;line-height:1.08">Your agentic journey, taken to production</h2>
+      <p style="font-size:16px;line-height:1.6;color:var(--color-neutral-800);margin:0 0 20px">Most agent projects stall between the demo and the deployment: no evaluation harness, no cost ceiling, no idea what happens when a tool call fails at 2am. That gap is an architecture problem, and it is the one I solve.</p>
+      <a href="/agentic" class="btn btn-secondary" style="font-size:14px">How I work on agents →</a>
+    </div>
+    <div class="g-2" style="display:grid;grid-template-columns:1fr 1fr;gap:28px 32px">
+      <div style="border-top:1px solid var(--color-text);padding-top:12px"><div style="font:600 17px/1.2 var(--font-heading);margin-bottom:6px">Agent architecture</div><p style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-700);margin:0">Tool boundaries, state, retries and human checkpoints designed as a system — not a prompt chain.</p></div>
+      <div style="border-top:1px solid var(--color-text);padding-top:12px"><div style="font:600 17px/1.2 var(--font-heading);margin-bottom:6px">Evaluation and guardrails</div><p style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-700);margin:0">Golden sets, regression gates in CI, refusal and escalation paths, PII handling for regulated data.</p></div>
+      <div style="border-top:1px solid var(--color-text);padding-top:12px"><div style="font:600 17px/1.2 var(--font-heading);margin-bottom:6px">Cost and latency control</div><p style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-700);margin:0">Model routing, caching, batching and token budgets, with per-tenant spend visible in Datadog.</p></div>
+      <div style="border-top:1px solid var(--color-text);padding-top:12px"><div style="font:600 17px/1.2 var(--font-heading);margin-bottom:6px">Spec-driven delivery</div><p style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-700);margin:0">The workflow that cut cycle time 60% across 35 engineers, installed in your team's own repos.</p></div>
+    </div>
+  </section>
+
+  <section style="margin-top:104px;border-top:1px solid var(--color-text);padding-top:36px">
+    <blockquote style="margin:0;max-width:26em">
+      <p style="font:italic 400 26px/1.45 var(--font-body);margin:0 0 18px">{{ site.testimonial.quote }}</p>
+      <footer style="font-size:13.5px;color:var(--color-neutral-700)">{{ site.testimonial.author }}</footer>
+    </blockquote>
+  </section>
+
+  <section style="margin-top:96px;border-top:4px solid var(--color-text);padding-top:28px;display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between;margin-bottom:96px">
+    <div><h2 style="margin:0 0 8px;font-size:32px">Have a system to build?</h2><p style="margin:0;font-size:15px;color:var(--color-neutral-700)">Thirty minutes, no deck. Bring the problem and we will scope it on the call.</p></div>
+    <a href="/contact" class="btn btn-primary" style="font-size:16px;padding:13px 24px">Book a discovery call</a>
+  </section>
+</main>
+{% endblock %}
