@@ -1,4 +1,4 @@
-name: CI
+name: PuneetBuild
 
 # Main-branch only: pushes to main, and pull requests that target main.
 on:
@@ -95,6 +95,7 @@ jobs:
       # Multi-arch: amd64 layers come from the type=gha cache above; arm64 is
       # built here under QEMU emulation, so this run is slower than an amd64-only push.
       - name: Push image
+        id: push
         if: github.event_name == 'push'
         uses: docker/build-push-action@v6
         with:
@@ -106,3 +107,38 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/puneetbehl-site:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # Print exactly what was published — both tags and the immutable digest —
+      # to the step log and the run summary, so the pipeline itself records it.
+      - name: Image summary
+        if: github.event_name == 'push'
+        env:
+          IMAGE: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/puneetbehl-site
+          SHA: ${{ github.sha }}
+          DIGEST: ${{ steps.push.outputs.digest }}
+        run: |
+          {
+            echo "## Docker image pushed"
+            echo ""
+            echo "| Tag | Reference |"
+            echo "| --- | --- |"
+            echo "| latest | \`${IMAGE}:latest\` |"
+            echo "| commit | \`${IMAGE}:${SHA}\` |"
+            echo "| digest | \`${IMAGE}@${DIGEST}\` |"
+            echo ""
+            echo '```'
+            echo "docker pull ${IMAGE}:latest"
+            echo "docker pull ${IMAGE}:${SHA}"
+            echo '```'
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
+      # PRs build and smoke-test the image but never push it — say so plainly.
+      - name: Image summary (not pushed)
+        if: github.event_name != 'push'
+        run: |
+          {
+            echo "## Docker image built (not pushed)"
+            echo ""
+            echo "Built and smoke-tested locally as \`puneetbehl-site:${{ github.sha }}\`."
+            echo "Pushes to Docker Hub happen only on \`push\` to \`main\`."
+          } | tee -a "$GITHUB_STEP_SUMMARY"
