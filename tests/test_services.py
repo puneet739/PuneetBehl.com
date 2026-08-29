@@ -14,19 +14,23 @@ def test_services_ok(client):
     assert client.get("/services").status_code == 200
 
 
-def test_all_three_package_names_render(client):
+def test_all_package_names_render(client):
     body = client.get("/services").text
     assert "Architecture Sprint" in body
     assert "Build and Ship" in body
     assert "Fractional Architect" in body
+    assert "Interview Prep" in body
+    assert "30-Minute Discussion" in body
 
 
 def test_exact_prices_render(client):
     # Commercially meaningful — a silent truncation or reformat must fail.
     body = client.get("/services").text
-    assert "$6,500" in body
-    assert "From $9,000" in body
-    assert "From $3,800" in body
+    assert "₹999" in body
+    assert "₹899" in body
+    assert "₹799" in body
+    assert "₹599" in body
+    assert "₹299" in body
 
 
 def test_nested_items_bullets_render(client):
@@ -40,7 +44,7 @@ def test_nested_items_bullets_render(client):
 
 def test_supporting_copy_renders(client):
     body = client.get("/services").text
-    assert "Three ways to work with me" in body
+    assert "Five ways to work with me" in body
     assert "How an engagement runs" in body
     assert "Anika Rao — Head of Product, Curato Health" in body
 

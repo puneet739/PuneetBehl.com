@@ -33,6 +33,20 @@ def test_contact_get(client):
     assert 'name="ts"' in r.text
 
 
+def test_contact_dropdown_lists_every_service(client):
+    # The "What do you need?" options are rendered from packages.yaml.
+    body = client.get("/contact").text
+    for name in (
+        "Architecture Sprint",
+        "Build and Ship",
+        "Fractional Architect",
+        "Interview Prep",
+        "30-Minute Discussion",
+        "Something else",
+    ):
+        assert f">{name}</option>" in body
+
+
 def test_contact_get_sent_panel(client):
     r = client.get("/contact?sent=1")
     assert r.status_code == 200

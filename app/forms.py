@@ -5,13 +5,11 @@ import time
 from itsdangerous import BadData, URLSafeTimedSerializer
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
-CONTACT_KINDS: tuple[str, ...] = (
-    "Agentic architecture sprint",
-    "Build and ship an agentic product",
-    "Fractional architect / advisory",
-    "Cloud or Kubernetes migration",
-    "Something else",
-)
+from app.content import contact_kinds
+
+# The single source of truth is content/packages.yaml; contact_kinds() reads
+# the package names from there and appends the "Something else" catch-all.
+CONTACT_KINDS: tuple[str, ...] = contact_kinds()
 
 INTERVIEW_FORMATS: tuple[str, ...] = (
     "System design · 60 min",

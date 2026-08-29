@@ -151,12 +151,26 @@ def load_content(root: Path = CONTENT_DIR) -> Content:
 
 _content: Content | None = None
 
+# Appended after the service list so a visitor whose need is not one of the
+# packages still has something to pick.
+CONTACT_CATCHALL = "Something else"
+
 
 def get_content() -> Content:
     global _content
     if _content is None:
         _content = load_content()
     return _content
+
+
+def contact_kinds(content: Content | None = None) -> tuple[str, ...]:
+    """The options for the contact form's "What do you need?" dropdown.
+
+    Derived from packages.yaml so the services page and the contact form are
+    never out of step: add a package there and it shows up in both.
+    """
+    c = content or get_content()
+    return tuple(p.name for p in c.packages) + (CONTACT_CATCHALL,)
 
 
 def get_project(slug: str) -> Project | None:

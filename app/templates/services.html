@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Services — Puneet Behl{% endblock %}
-{% block description %}Three ways to work with me: a fixed-price architecture sprint, a build-and-ship retainer, or fractional architect cover — all remote, IST-anchored.{% endblock %}
+{% block description %}Five ways to work with me: an architecture sprint, a build-and-ship session, fractional architect cover, interview prep, or a 30-minute discussion — all remote, IST-anchored, priced in INR.{% endblock %}
 {% block main %}
 <main style="padding:56px 0 96px">
   <h1 style="font-size:46px;margin:0 0 16px">Services</h1>
-  <p style="font-size:17px;line-height:1.6;max-width:38em;margin:0 0 48px;color:var(--color-neutral-800)">Three ways to work with me. All remote, IST-anchored with four hours of overlap into Europe and the US East Coast. Indian clients are invoiced in INR at the prevailing rate.</p>
-  <div class="g-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:36px">
+  <p style="font-size:17px;line-height:1.6;max-width:38em;margin:0 0 48px;color:var(--color-neutral-800)">Five ways to work with me. All remote, IST-anchored with four hours of overlap into Europe and the US East Coast. Prices are in INR.</p>
+  <div class="g-3" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:36px">
     {% for s in packages %}
       <div style="display:flex;flex-direction:column;border-top:4px solid var(--color-text);padding-top:20px">
         <div style="font:600 11px/1 var(--font-heading);letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:14px">{{ s.kicker }}</div>

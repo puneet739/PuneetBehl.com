@@ -7,7 +7,9 @@ from pydantic import ValidationError
 
 import app.content as content_module
 from app.content import (
+    CONTACT_CATCHALL,
     CONTENT_DIR,
+    contact_kinds,
     get_content,
     get_post,
     get_project,
@@ -24,7 +26,7 @@ def content():
 
 def test_counts(content):
     assert len(content.projects) == 8
-    assert len(content.packages) == 3
+    assert len(content.packages) == 5
     assert len(content.roles) == 6
     assert len(content.posts) == 4
     assert len(content.skills) == 30
@@ -94,12 +96,28 @@ def test_packages(content):
     pkg = content.packages[0]
     assert pkg.kicker == "Fixed price · 2 weeks"
     assert pkg.name == "Architecture Sprint"
-    assert pkg.price == "$6,500"
-    assert pkg.terms == "or ₹5.4L · two weeks, one architect"
+    assert pkg.price == "₹999"
+    assert pkg.terms == "one-off · architecture review and a build plan you keep"
     assert pkg.cta == "Scope a sprint"
     assert len(pkg.items) == 4
+    assert len(content.packages) == 5
     assert content.packages[1].name == "Build and Ship"
-    assert content.packages[2].price == "From $3,800"
+    assert content.packages[2].price == "₹799"
+    assert content.packages[3].name == "Interview Prep"
+    assert content.packages[4].name == "30-Minute Discussion"
+    # every service is priced at ₹1,000 or below
+    for p in content.packages:
+        assert int(p.price.lstrip("₹").replace(",", "")) <= 1000
+
+
+def test_contact_kinds_track_packages(content):
+    # The contact form's dropdown must be derived from packages.yaml: every
+    # package name, in order, then the catch-all — no separate hand-kept list.
+    kinds = contact_kinds(content)
+    assert list(kinds[:-1]) == [p.name for p in content.packages]
+    assert kinds[-1] == CONTACT_CATCHALL
+    assert "Interview Prep" in kinds
+    assert "30-Minute Discussion" in kinds
 
 
 def test_roles(content):
@@ -120,7 +138,7 @@ def test_skills(content):
 
 def test_site_config(content):
     site = content.site
-    assert site.tagline_role == "Technical Architect · Bengaluru"
+    assert site.tagline_role == "Solutions Architect · Bengaluru"
     assert site.availability_short == "2 slots · Oct 2026"
     assert site.email == "puneet739@gmail.com"
     assert site.phone == "+91 97116 16135"
